@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitive Exams After 12th - India</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color:cornflowerblue;
+            color: #333;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .search-box {
+            background: white;
+            border-radius: 50px;
+            padding: 8px 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .search-box i {
+            color: #6a11cb;
+            font-size: 1.3rem;
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: white;
+            color: #6a11cb;
+        }
+        
+        .exams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .exam-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .exam-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .exam-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+            color: white;
+        }
+        
+        .exam-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .exam-body {
+            padding: 20px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        
+        .detail-icon {
+            color: #3a7bd5;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            margin-top: 3px;
+            min-width: 20px;
+        }
+        
+        .detail-content h4 {
+            margin-bottom: 5px;
+            color: #3a7bd5;
+        }
+        
+        .detail-content ul {
+            list-style-type: none;
+        }
+        
+        .detail-content li {
+            margin-bottom: 5px;
+            padding-left: 5px;
+        }
+        
+        .detail-content a {
+            color: #00d2ff;
+            text-decoration: none;
+        }
+        
+        .detail-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #e6f7ff;
+            color: #1890ff;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .no-results {
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+            padding: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .exams-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Competitive Exams </h1>
+            <p>Discover all major competitive exams in INDIA, grade with preparation resources, important dates, and eligibility information</p>
+            
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search for exams (e.g., Engineering, Medical, Commerce)">
+            </div>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All Exams</button>
+                <button class="filter-btn" data-filter="engineering">Engineering</button>
+                <button class="filter-btn" data-filter="medical">Medical</button>
+                <button class="filter-btn" data-filter="commerce">Commerce</button>
+                <button class="filter-btn" data-filter="defense">Defense</button>
+                <button class="filter-btn" data-filter="humanities">Humanities</button>
+            </div>
+        </header>
+        
+        <div class="exams-grid" id="examsContainer">
+            <!-- Exam cards will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        // Exam data
+        const exams = [
+            {
+                title: "JEE Main",
+                category: "engineering",
+                description: "Joint Entrance Examination for engineering colleges",
+                marksRequired: "75% in 12th for IITs/NITs (60% for GEN, 55% for SC/ST/PwD)",
+                applicationDate: "December - January",
+                examDate: "January - April",
+                websites: ["https://jeemain.nta.nic.in", "https://byjus.com/jee", "https://www.vedantu.com/jee"],
+                books: ["Concepts of Physics by HC Verma", "Organic Chemistry by OP Tandon", "Mathematics by RD Sharma"]
+            },
+            {
+                title: "JEE Advanced",
+                category: "engineering",
+                description: "For admission to IITs",
+                marksRequired: "Top 2,50,000 rank holders in JEE Main",
+                applicationDate: "April - May",
+                examDate: "June",
+                websites: ["https://jeeadv.ac.in", "https://byjus.com/jee", "https://www.embibe.com"],
+                books: ["IIT Mathematics by M.L. Khanna", "Problems in General Physics by I.E. Irodov", "Advanced Problems in Organic Chemistry by MS Chouhan"]
+            },
+            {
+                title: "NEET UG",
+                category: "medical",
+                description: "National Eligibility cum Entrance Test for medical courses",
+                marksRequired: "50% in PCB for GEN (40% for SC/ST/OBC)",
+                applicationDate: "December - January",
+                examDate: "May",
+                websites: ["https://neet.nta.nic.in", "https://www.aakash.ac.in/neet", "https://www.doubtnut.com"],
+                books: ["NCERT Biology Class 11 & 12", "Objective Biology by Dinesh", "Trueman's Biology"]
+            },
+            {
+                title: "CLAT",
+                category: "humanities",
+                description: "Common Law Admission Test for law schools",
+                marksRequired: "45% in 12th for GEN (40% for SC/ST)",
+                applicationDate: "January - March",
+                examDate: "May",
+                websites: ["https://consortiumofnlus.ac.in", "https://www.clatpossible.com", "https://www.lawentrance.com"],
+                books: ["Universal's CLAT Guide", "Legal Awareness and Legal Reasoning by AP Bhardwaj", "Word Power Made Easy by Norman Lewis"]
+            },
+            {
+                title: "NDA",
+                category: "defense",
+                description: "National Defence Academy entrance exam",
+                marksRequired: "Passed 12th with Physics and Mathematics",
+                applicationDate: "December - January & June - July",
+                examDate: "April & September",
+                websites: ["https://upsc.gov.in", "https://www.ssbcrack.com", "https://www.ndaexam.org"],
+                books: ["Pathfinder for NDA & NA", "Mathematics for NDA by RS Aggarwal", "Objective General English by SP Bakshi"]
+            },
+            {
+                title: "CA Foundation",
+                category: "commerce",
+                description: "Chartered Accountancy Foundation exam",
+                marksRequired: "Passed 12th (any stream)",
+                applicationDate: "Throughout the year",
+                examDate: "May & November",
+                websites: ["https://www.icai.org", "https://www.esaral.com/ca-foundation", "https://www.cakart.in"],
+                books: ["Study Material by ICAI", "CA Foundation Scanner by PK Jain", "Quick Revision Notes by CA Parveen Sharma"]
+            },
+            {
+                title: "BITSAT",
+                category: "engineering",
+                description: "Birla Institute of Technology & Science Admission Test",
+                marksRequired: "75% in PCB/PCM with 60% in each subject",
+                applicationDate: "January - March",
+                examDate: "May - June",
+                websites: ["https://bitsadmission.com", "https://www.embibe.com", "https://www.bitsatprep.com"],
+                books: ["BITSAT Explorer by MTG", "BITSAT English Proficiency & Logical Reasoning by Arihant", "Complete PCMB books for BITSAT by Disha"]
+            },
+            {
+                title: "CUET",
+                category: "humanities",
+                description: "Common University Entrance Test for central universities",
+                marksRequired: "As per university requirements (typically 50% for GEN)",
+                applicationDate: "February - March",
+                examDate: "May - June",
+                websites: ["https://cuet.samarth.ac.in", "https://www.cuetmocks.com", "https://www.cuetnow.com"],
+                books: ["CUET UG Study Material by Arihant", "NCERT Books of relevant subjects", "CUET Previous Years Papers"]
+            }
+        ];
+
+        // DOM elements
+        const examsContainer = document.getElementById('examsContainer');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        let currentFilter = 'all';
+        
+        // Display exams based on current filter and search
+        function displayExams() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            const filteredExams = exams.filter(exam => {
+                const matchesSearch = exam.title.toLowerCase().includes(searchTerm) || 
+                                    exam.description.toLowerCase().includes(searchTerm) ||
+                                    exam.category.toLowerCase().includes(searchTerm);
+                
+                const matchesFilter = currentFilter === 'all' || exam.category === currentFilter;
+                
+                return matchesSearch && matchesFilter;
+            });
+            
+            renderExams(filteredExams);
+        }
+        
+        // Render exams to the DOM
+        function renderExams(examsToRender) {
+            examsContainer.innerHTML = '';
+            
+            if (examsToRender.length === 0) {
+                examsContainer.innerHTML = '<div class="no-results">No exams found matching your criteria. Try a different search.</div>';
+                return;
+            }
+            
+            examsToRender.forEach(exam => {
+                const examCard = document.createElement('div');
+                examCard.className = 'exam-card';
+                
+                // Create tags for books and websites
+                const booksTags = exam.books.slice(0, 2).map(book => `<span class="tag">${book}</span>`).join('');
+                const websitesTags = exam.websites.slice(0, 2).map(site => {
+                    const domain = new URL(site).hostname;
+                    return `<span class="tag">${domain}</span>`;
+                }).join('');
+                
+                examCard.innerHTML = `
+                    <div class="exam-header">
+                        <h3>${exam.title}</h3>
+                        <p>${exam.description}</p>
+                    </div>
+                    <div class="exam-body">
+                        <div class="detail-row">
+                            <div class="detail-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="detail-content">
+                                <h4>Marks Required</h4>
+                                <p>${exam.marksRequired}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-icon">
+                                <i class="far fa-calendar-alt"></i>
+                            </div>
+                            <div class="detail-content">
+                                <h4>Important Dates</h4>
+                                <p>Apply: ${exam.applicationDate} | Exam: ${exam.examDate}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="detail-content">
+                                <h4>Recommended Books</h4>
+                                <div>${booksTags}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="detail-content">
+                                <h4>Preparation Websites</h4>
+                                <div>${websitesTags}</div>
+                                <ul>
+                                    ${exam.websites.map(site => `<li><a href="${site}" target="_blank">${site}</a></li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                examsContainer.appendChild(examCard);
+            });
+        }
+        
+        // Set up event listeners
+        searchInput.addEventListener('input', displayExams);
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                currentFilter = button.dataset.filter;
+                displayExams();
+            });
+        });
+        
+        // Initial render
+        displayExams();
+    </script>
+</body>
+</html>

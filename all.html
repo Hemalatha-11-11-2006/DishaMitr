@@ -1,0 +1,191 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Career Containers — Medicine / Engineering / Commerce</title>
+  <style>
+    :root{
+      --bg:#f5f7fa;
+      --card:#ffffff;
+      --accent:#2563eb;
+      --muted:#475569;
+      --glass: rgba(37,99,235,0.08);
+      --radius:16px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#e0f2fe 0%, #f0f9ff 100%);color:#1e293b}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+      width:min(1100px,100%);
+    }
+
+    /* Card */
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      border:1px solid rgba(0,0,0,0.06);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      transition:transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms;
+      cursor:pointer;
+      outline: none;
+    }
+    .card:focus{box-shadow:0 10px 30px rgba(37,99,235,0.25);transform:translateY(-6px)}
+    .card:hover{transform:translateY(-6px);box-shadow:0 14px 40px rgba(0,0,0,0.12)}
+
+    .card .title{
+      display:flex;align-items:center;gap:12px;font-size:20px;font-weight:600;
+    }
+    .badge{
+      width:46px;height:46px;border-radius:10px;display:grid;place-items:center;font-weight:700;font-size:20px;
+      background:linear-gradient(135deg,var(--accent), #38bdf8);
+      color:white;box-shadow:0 6px 18px rgba(37,99,235,0.25)
+    }
+    .desc{color:var(--muted);font-size:14px;line-height:1.45}
+    .actions{margin-top:auto;display:flex;gap:10px}
+    .btn{
+      padding:10px 14px;border-radius:10px;border:0;background:var(--glass);color:var(--muted);font-weight:600;cursor:pointer;backdrop-filter: blur(4px);
+    }
+    .btn.primary{background:linear-gradient(90deg,var(--accent), #38bdf8);color:white}
+
+    /* details area - hidden until click */
+    .details{display:none;padding-top:8px;border-top:1px dashed rgba(0,0,0,0.06);margin-top:8px}
+    .card.active .details{display:block}
+
+    /* responsive */
+    @media (max-width:880px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    /* small helper */
+    .pill{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(37,99,235,0.08);color:var(--muted)}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="grid" role="list">
+
+      <article class="card" tabindex="0" role="listitem" data-key="medicine" aria-labelledby="med-title">
+        <div class="title">
+          <div class="badge">M</div>
+          <div>
+            <div id="med-title">Medicine</div>
+            <div class="pill" style="margin-top:6px">Health & Life Sciences</div>
+          </div>
+        </div>
+        <p class="desc">Study of diagnosis, treatment and prevention of disease. Careers: doctor, surgeon, pharmacist, researcher, public health specialist.</p>
+        <div class="actions">
+          <button class="btn" data-action="info">More info</button>
+          <button class="btn primary" data-action="select">Choose Medicine</button>
+        </div>
+        <div class="details" aria-hidden="true">
+          <strong>Subjects:</strong>
+          <ul>
+            <li>Biology, Chemistry, Anatomy</li>
+            <li>Entrance exams and medical school programs</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" data-key="engineering" aria-labelledby="eng-title">
+        <div class="title">
+          <div class="badge">E</div>
+          <div>
+            <div id="eng-title">Engineering</div>
+            <div class="pill" style="margin-top:6px">Technology & Design</div>
+          </div>
+        </div>
+        <p class="desc">Designing and building solutions — from bridges to software. Careers: civil, mechanical, electrical, computer engineer, product designer.</p>
+        <div class="actions">
+          <button class="btn" data-action="info">More info</button>
+          <button class="btn primary" data-action="select">Choose Engineering</button>
+        </div>
+        <div class="details" aria-hidden="true">
+          <strong>Subjects:</strong>
+          <ul>
+            <li>Mathematics, Physics, Computer Science</li>
+            <li>Workshops, problem solving, internships</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" data-key="commerce" aria-labelledby="com-title">
+        <div class="title">
+          <div class="badge">C</div>
+          <div>
+            <div id="com-title">Commerce</div>
+            <div class="pill" style="margin-top:6px">Business & Finance</div>
+          </div>
+        </div>
+        <p class="desc">Focus on trade, finance, and management. Careers: accountant, economist, banker, entrepreneur, marketer.</p>
+        <div class="actions">
+          <button class="btn" data-action="info">More info</button>
+          <button class="btn primary" data-action="select">Choose Commerce</button>
+        </div>
+        <div class="details" aria-hidden="true">
+          <strong>Subjects:</strong>
+          <ul>
+            <li>Economics, Accountancy, Business Studies</li>
+            <li>Internships, case studies, certifications</li>
+          </ul>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <script>
+    // simple interactivity: toggle details + keyboard accessibility
+    (function(){
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const infoBtn = card.querySelector('[data-action="info"]');
+        const selectBtn = card.querySelector('[data-action="select"]');
+        const details = card.querySelector('.details');
+
+        function toggleDetails(){
+          const open = card.classList.toggle('active');
+          details.setAttribute('aria-hidden', String(!open));
+        }
+        infoBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          toggleDetails();
+        });
+
+        selectBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          const key = card.getAttribute('data-key');
+          alert('You chose: ' + key.charAt(0).toUpperCase() + key.slice(1));
+        });
+
+        // allow clicking whole card
+        card.addEventListener('click', e => {
+          if(e.target.closest('button')) return;
+          toggleDetails();
+        });
+
+        // keyboard support
+        card.addEventListener('keydown', e => {
+          if(e.key === 'Enter' || e.key === ' '){
+            e.preventDefault();
+            toggleDetails();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

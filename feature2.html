@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DishaMitr - Features</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4CAF50;      /* Green */
+      --secondary: #2C3E50;    /* Dark Blue-Grey */
+      --accent: #FF9800;       /* Orange */
+      --light: #F9F9F9;        /* Light Grey */
+      --class10: #3498DB;      /* Blue */
+      --class11: #9B59B6;      /* Purple */
+      --class12: #E74C3C;      /* Red */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      padding: 20px;
+    }
+
+    .features {
+      padding: 80px 0;
+      background: white;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: var(--secondary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .section-title p {
+      color: #555;
+      max-width: 700px;
+      margin: 20px auto 0;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .feature-card {
+      background: var(--light);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border-top: 5px solid var(--primary);
+    }
+
+    .feature-card:nth-child(2) {
+      border-top-color: var(--class10);
+    }
+
+    .feature-card:nth-child(3) {
+      border-top-color: var(--class11);
+    }
+
+    .feature-card:nth-child(4) {
+      border-top-color: var(--class12);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:nth-child(1) .feature-icon {
+      background: var(--primary);
+    }
+
+    .feature-card:nth-child(2) .feature-icon {
+      background: var(--class10);
+    }
+
+    .feature-card:nth-child(3) .feature-icon {
+      background: var(--class11);
+    }
+
+    .feature-card:nth-child(4) .feature-icon {
+      background: var(--class12);
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 15px;
+      color: var(--secondary);
+      font-size: 1.4rem;
+    }
+
+    .feature-card p {
+      color: #555;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .features {
+        padding: 50px 0;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .feature-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>How DishaMitr Helps You</h2>
+        <p>Our platform is designed specifically for students in Classes 10, 11, and 12 to make informed career decisions</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"onclick="goToAI()">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3>AI Career Assessment</h3>
+          <p >Take our gamified quiz to discover your strengths, interests, and ideal career paths.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"onclick="goToroadmap()">
+            <i class="fas fa-road"></i>
+          </div>
+          <h3>Career Roadmaps</h3>
+          <p>See clear visual paths from your chosen stream to potential careers and opportunities.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"onclick="goTocollege()">
+            <i class="fas fa-university"></i>
+          </div>
+          <h3>College Finder</h3>
+          <p >Discover government colleges with details on courses, cutoffs, and facilities.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"onclick="goTocompettitive()">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>Competitive Exams</h3>
+          <p >Track your progress, strengths, and recommended paths in the Competitive Exams.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    
+
+    function goToAI() {
+  window.location.href = "AI1.html"; 
+}
+
+  function goTocollege() {
+  window.location.href = "CollegeFinder.html"; 
+}
+
+  function goTocompettitive() {
+  window.location.href = "compettitive.html"; 
+  }
+
+function goToroadmap() {
+  window.location.href = "Engineering.html";
+}
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,779 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Assessment Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        header {
+            background: #4e73df;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .progress-container {
+            background: #e9ecef;
+            height: 12px;
+            width: 100%;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #4e73df, #6f42c1);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .quiz-container {
+            padding: 30px;
+        }
+        
+        .question-number {
+            color: #6e8efb;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .question-text {
+            font-size: 22px;
+            margin-bottom: 25px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        
+        .options-container {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .option {
+            padding: 18px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            background: #e0e7ff;
+            border-color: #4e73df;
+            color: #4e73df;
+        }
+        
+        .option-icon {
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        button {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .prev-btn {
+            background: #f8f9fa;
+            color: #495057;
+        }
+        
+        .prev-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .next-btn {
+            background: #4e73df;
+            color: white;
+            box-shadow: 0 4px 15px rgba(78, 115, 223, 0.3);
+        }
+        
+        .next-btn:hover {
+            background: #3a56c4;
+            transform: translateY(-2px);
+        }
+        
+        .quiz-complete {
+            text-align: center;
+            padding: 50px 30px;
+        }
+        
+        .quiz-complete i {
+            font-size: 70px;
+            color: #4e73df;
+            margin-bottom: 20px;
+        }
+        
+        .quiz-complete h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #4e73df;
+        }
+        
+        .quiz-complete p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #666;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .results-btn {
+            background: #4e73df;
+            color: white;
+            padding: 16px 40px;
+            font-size: 18px;
+        }
+        
+        .results-btn:hover {
+            background: #3a56c4;
+            transform: translateY(-2px);
+        }
+        
+        /* Results Page Styles */
+        .results-container {
+            padding: 30px;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .results-header i {
+            font-size: 60px;
+            color: #4e73df;
+            margin-bottom: 15px;
+        }
+        
+        .results-header h2 {
+            font-size: 32px;
+            color: #4e73df;
+            margin-bottom: 10px;
+        }
+        
+        .results-header p {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .results-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .career-traits, .career-matches {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            color: #4e73df;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .traits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .trait {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .trait i {
+            font-size: 24px;
+            color: #4e73df;
+            margin-bottom: 10px;
+        }
+        
+        .trait h4 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .trait p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .career-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .career-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .career-icon {
+            width: 50px;
+            height: 50px;
+            background: #e0e7ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .career-icon i {
+            color: #4e73df;
+            font-size: 20px;
+        }
+        
+        .career-info h4 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .career-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .action-section {
+            background: #e0e7ff;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+        }
+        
+        .action-section h3 {
+            font-size: 24px;
+            color: #4e73df;
+            margin-bottom: 15px;
+        }
+        
+        .action-section p {
+            color: #666;
+            margin-bottom: 20px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background: #4e73df;
+            color: white;
+            box-shadow: 0 4px 15px rgba(78, 115, 223, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: #3a56c4;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #4e73df;
+            border: 2px solid #4e73df;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .back-btn {
+                left: 15px;
+                font-size: 18px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question-text {
+                font-size: 20px;
+            }
+            
+            button {
+                padding: 12px 25px;
+            }
+            
+            .results-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .traits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="container">
+        <header>
+            <a href="#" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <h1>AI Career Assessment</h1>
+            <p class="subtitle">Discover your strengths, interests, and ideal career paths</p>
+        </header>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div id="question-container">
+                <div class="question-number">Question <span id="current-question">1</span> of 5</div>
+                <h2 class="question-text" id="question">Which of these activities do you enjoy the most?</h2>
+                
+                <div class="options-container" id="options">
+                    <div class="option" data-value="0">
+                        <div class="option-icon"><i class="fas fa-pencil-alt"></i></div>
+                        <div>Creating art, writing, or designing</div>
+                    </div>
+                    <div class="option" data-value="1">
+                        <div class="option-icon"><i class="fas fa-calculator"></i></div>
+                        <div>Solving complex problems or puzzles</div>
+                    </div>
+                    <div class="option" data-value="2">
+                        <div class="option-icon"><i class="fas fa-users"></i></div>
+                        <div>Working with people and helping others</div>
+                    </div>
+                    <div class="option" data-value="3">
+                        <div class="option-icon"><i class="fas fa-chart-line"></i></div>
+                        <div>Analyzing data and trends</div>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="prev-btn" id="prev-btn" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="next-btn" id="next-btn">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div id="completion-screen" style="display: none;">
+                <div class="quiz-complete">
+                    <i class="fas fa-check-circle"></i>
+                    <h2>Quiz Completed!</h2>
+                    <p>You've successfully completed the AI Career Assessment. We're analyzing your responses to provide personalized career recommendations.</p>
+                    <button class="results-btn" id="view-results-btn">View Your Results</button>
+                </div>
+            </div>
+            
+            <div id="results-screen" style="display: none;">
+                <div class="results-container">
+                    <div class="results-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h2>Your Career Assessment Results</h2>
+                        <p>Based on your quiz responses, we've identified your strengths and recommended career paths that match your skills and interests.</p>
+                    </div>
+                    
+                    <div class="results-content">
+                        <div class="career-traits">
+                            <h3 class="section-title">Your Key Strengths</h3>
+                            <div class="traits-grid" id="strengths-container">
+                                <!-- Strengths will be dynamically inserted here -->
+                            </div>
+                        </div>
+                        
+                        <div class="career-matches">
+                            <h3 class="section-title">Recommended Career Paths</h3>
+                            <div class="career-list" id="careers-container">
+                                <!-- Careers will be dynamically inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = [
+                {
+                    question: "Which of these activities do you enjoy the most?",
+                    options: [
+                        "Creating art, writing, or designing",
+                        "Solving complex problems or puzzles",
+                        "Working with people and helping others",
+                        "Analyzing data and trends"
+                    ]
+                },
+                {
+                    question: "What is your preferred working environment?",
+                    options: [
+                        "Flexible and creative space",
+                        "Quiet place for deep focus",
+                        "Dynamic team setting",
+                        "Structured and organized office"
+                    ]
+                },
+                {
+                    question: "Which subject did you enjoy most in school?",
+                    options: [
+                        "Arts or Literature",
+                        "Mathematics or Science",
+                        "Social Sciences",
+                        "Business or Economics"
+                    ]
+                },
+                {
+                    question: "How do you approach challenges?",
+                    options: [
+                        "With creativity and innovation",
+                        "With logical analysis",
+                        "By collaborating with others",
+                        "With careful planning"
+                    ]
+                },
+                {
+                    question: "Which skill do you consider your strongest?",
+                    options: [
+                        "Creativity and imagination",
+                        "Analytical thinking",
+                        "Communication and empathy",
+                        "Organization and management"
+                    ]
+                }
+            ];
+            
+            const progressBar = document.getElementById('progress');
+            const currentQuestionElement = document.getElementById('current-question');
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const questionContainer = document.getElementById('question-container');
+            const completionScreen = document.getElementById('completion-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const viewResultsBtn = document.getElementById('view-results-btn');
+            const strengthsContainer = document.getElementById('strengths-container');
+            const careersContainer = document.getElementById('careers-container');
+            
+            let currentQuestion = 0;
+            const totalQuestions = questions.length;
+            const userAnswers = new Array(totalQuestions).fill(null);
+            
+            // Define possible results based on answer patterns
+            const resultsData = {
+                strengths: [
+                    { icon: 'lightbulb', title: 'Creative Thinking', description: 'You excel at generating innovative ideas and solutions' },
+                    { icon: 'users', title: 'Collaboration', description: 'You work effectively with others in team settings' },
+                    { icon: 'chart-pie', title: 'Analytical Skills', description: 'You\'re skilled at breaking down complex problems' },
+                    { icon: 'comments', title: 'Communication', description: 'You express ideas clearly and persuasively' },
+                    { icon: 'cogs', title: 'Problem Solving', description: 'You approach challenges with logical reasoning' },
+                    { icon: 'tasks', title: 'Organization', description: 'You manage projects and timelines effectively' }
+                ],
+                careers: [
+                    { icon: 'laptop-code', title: 'UX/UI Designer', description: 'Combine creativity with technology to create user-friendly interfaces' },
+                    { icon: 'bullhorn', title: 'Digital Marketing Specialist', description: 'Develop and implement online marketing strategies' },
+                    { icon: 'project-diagram', title: 'Project Manager', description: 'Lead teams and coordinate projects to successful completion' },
+                    { icon: 'graduation-cap', title: 'Instructional Designer', description: 'Create engaging educational materials and learning experiences' },
+                    { icon: 'code', title: 'Software Developer', description: 'Build applications and systems to solve practical problems' },
+                    { icon: 'chart-line', title: 'Data Analyst', description: 'Interpret complex data to help organizations make informed decisions' },
+                    { icon: 'hands-helping', title: 'Human Resources Specialist', description: 'Help organizations manage and develop their talent' },
+                    { icon: 'palette', title: 'Graphic Designer', description: 'Create visual concepts to communicate ideas that inspire and inform' }
+                ]
+            };
+            
+            // Initialize progress bar
+            updateProgress();
+            
+            // Load the first question
+            loadQuestion();
+            
+            function loadQuestion() {
+                const question = questions[currentQuestion];
+                currentQuestionElement.textContent = currentQuestion + 1;
+                questionElement.textContent = question.question;
+                
+                // Clear previous options
+                optionsElement.innerHTML = '';
+                
+                // Add new options
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option';
+                    if (userAnswers[currentQuestion] === index) {
+                        optionElement.classList.add('selected');
+                    }
+                    optionElement.innerHTML = `
+                        <div class="option-icon"><i class="fas fa-${getOptionIcon(index)}"></i></div>
+                        <div>${option}</div>
+                    `;
+                    optionElement.dataset.value = index;
+                    optionElement.addEventListener('click', selectOption);
+                    optionsElement.appendChild(optionElement);
+                });
+                
+                // Update navigation buttons
+                prevBtn.disabled = currentQuestion === 0;
+                
+                if (currentQuestion === totalQuestions - 1) {
+                    nextBtn.textContent = 'Finish ';
+                    nextBtn.innerHTML = 'Finish <i class="fas fa-check"></i>';
+                } else {
+                    nextBtn.textContent = 'Next ';
+                    nextBtn.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+                }
+            }
+            
+            function getOptionIcon(index) {
+                const icons = ['pencil-alt', 'calculator', 'users', 'chart-line'];
+                return icons[index] || 'circle';
+            }
+            
+            function selectOption(e) {
+                const selectedOption = e.currentTarget;
+                const options = optionsElement.querySelectorAll('.option');
+                
+                options.forEach(option => option.classList.remove('selected'));
+                selectedOption.classList.add('selected');
+                
+                userAnswers[currentQuestion] = parseInt(selectedOption.dataset.value);
+            }
+            
+            function updateProgress() {
+                const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            function generateResults() {
+                // Clear previous results
+                strengthsContainer.innerHTML = '';
+                careersContainer.innerHTML = '';
+                
+                // Calculate user's dominant traits based on answers
+                // This is a simplified algorithm for demonstration
+                const creativeScore = [0, 0, 0, 3, 0].reduce((acc, val, idx) => 
+                    acc + (userAnswers[idx] === val ? 1 : 0), 0);
+                const analyticalScore = [1, 1, 1, 1, 1].reduce((acc, val, idx) => 
+                    acc + (userAnswers[idx] === val ? 1 : 0), 0);
+                const socialScore = [2, 2, 2, 2, 2].reduce((acc, val, idx) => 
+                    acc + (userAnswers[idx] === val ? 1 : 0), 0);
+                const organizedScore = [3, 3, 3, 3, 3].reduce((acc, val, idx) => 
+                    acc + (userAnswers[idx] === val ? 1 : 0), 0);
+                
+                // Select strengths based on scores
+                const selectedStrengths = [];
+                if (creativeScore >= 2) selectedStrengths.push(0); // Creative Thinking
+                if (socialScore >= 2) selectedStrengths.push(1);   // Collaboration
+                if (analyticalScore >= 2) selectedStrengths.push(2); // Analytical Skills
+                if (socialScore >= 2) selectedStrengths.push(3);   // Communication
+                if (analyticalScore >= 2) selectedStrengths.push(4); // Problem Solving
+                if (organizedScore >= 2) selectedStrengths.push(5); // Organization
+                
+                // If no clear pattern, show default strengths
+                if (selectedStrengths.length === 0) {
+                    selectedStrengths.push(0, 1, 4);
+                }
+                
+                // Select careers based on scores
+                const selectedCareers = [];
+                if (creativeScore >= 2) selectedCareers.push(0, 7); // Design roles
+                if (analyticalScore >= 2) selectedCareers.push(4, 5); // Tech and data roles
+                if (socialScore >= 2) selectedCareers.push(2, 6); // People-oriented roles
+                if (organizedScore >= 2) selectedCareers.push(2, 3); // Management roles
+                
+                // If no clear pattern, show default careers
+                if (selectedCareers.length === 0) {
+                    selectedCareers.push(0, 2, 4);
+                }
+                
+                // Display strengths (limit to 4)
+                const displayStrengths = [...new Set(selectedStrengths)].slice(0, 4);
+                displayStrengths.forEach(index => {
+                    const strength = resultsData.strengths[index];
+                    const strengthElement = document.createElement('div');
+                    strengthElement.className = 'trait';
+                    strengthElement.innerHTML = `
+                        <i class="fas fa-${strength.icon}"></i>
+                        <h4>${strength.title}</h4>
+                        <p>${strength.description}</p>
+                    `;
+                    strengthsContainer.appendChild(strengthElement);
+                });
+                
+                // Display careers (limit to 4)
+                const displayCareers = [...new Set(selectedCareers)].slice(0, 4);
+                displayCareers.forEach(index => {
+                    const career = resultsData.careers[index];
+                    const careerElement = document.createElement('div');
+                    careerElement.className = 'career-item';
+                    careerElement.innerHTML = `
+                        <div class="career-icon">
+                            <i class="fas fa-${career.icon}"></i>
+                        </div>
+                        <div class="career-info">
+                            <h4>${career.title}</h4>
+                            <p>${career.description}</p>
+                        </div>
+                    `;
+                    careersContainer.appendChild(careerElement);
+                });
+            }
+            
+            nextBtn.addEventListener('click', function() {
+                if (userAnswers[currentQuestion] === null) {
+                    alert('Please select an option before proceeding.');
+                    return;
+                }
+                
+                if (currentQuestion < totalQuestions - 1) {
+                    currentQuestion++;
+                    loadQuestion();
+                    updateProgress();
+                } else {
+                    // Quiz completed
+                    questionContainer.style.display = 'none';
+                    completionScreen.style.display = 'block';
+                    progressBar.style.width = '100%';
+                }
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    loadQuestion();
+                    updateProgress();
+                }
+            });
+            
+            viewResultsBtn.addEventListener('click', function() {
+                completionScreen.style.display = 'none';
+                resultsScreen.style.display = 'block';
+                generateResults();
+            });
+        });
+    </script>
+</body>
+</html>
+
+

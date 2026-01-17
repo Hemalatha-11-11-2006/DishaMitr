@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Career Roadmap - Mindmap</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+</head>
+<style>
+  :root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --light-color: #ecf0f1;
+  --shadow-color: rgba(0,0,0,0.1);
+  --success-color: #2ecc71;
+  --warning-color: #f39c12;
+  --nda-color: #9b59b6;
+  --ug-color: #2ecc71;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+h1 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+
+.subtitle {
+  color: var(--secondary-color);
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+
+.description {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.roadmap-container {
+  position: relative;
+  overflow: auto;
+  padding: 30px 0;
+}
+
+.mindmap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 1000px;
+  position: relative;
+}
+
+.level {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  margin: 25px 0;
+}
+
+.node {
+  position: relative;
+  background: white;
+  padding: 18px 30px;
+  border-radius: 12px;
+  margin: 0 20px;
+  text-align: center;
+  font-weight: bold;
+  color: var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  z-index: 2;
+  min-width: 180px;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.node:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.node i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--secondary-color);
+}
+
+.node.nda {
+  border-color: var(--nda-color);
+}
+
+.node.nda i {
+  color: var(--nda-color);
+}
+
+.node.ug {
+  border-color: var(--ug-color);
+}
+
+.node.ug i {
+  color: var(--ug-color);
+}
+
+.node.core {
+  background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+  border-color: var(--secondary-color);
+}
+
+.node.core i {
+  color: var(--primary-color);
+}
+
+.connectors {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.connector {
+  stroke: var(--secondary-color);
+  stroke-width: 3;
+  fill: none;
+  marker-end: url(#arrowhead);
+}
+
+.connector-nda {
+  stroke: var(--nda-color);
+}
+
+.connector-ug {
+  stroke: var(--ug-color);
+}
+
+.specializations {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.specialization {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.specialization:hover {
+  background: var(--secondary-color);
+  color: white;
+  transform: translateY(-3px);
+}
+
+.specialization h4 {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.specialization p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.specialization:hover p {
+  color: #eee;
+}
+
+.exam-pill {
+  display: inline-block;
+  background: var(--secondary-color);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.nda-pill {
+  background: var(--nda-color);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 35px;
+  border-radius: 15px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #777;
+  transition: color 0.3s;
+}
+
+.close-modal:hover {
+  color: var(--accent-color);
+}
+
+.course-list {
+  list-style-type: none;
+  margin-top: 20px;
+}
+
+.course-list li {
+  padding: 12px 0;
+  border-bottom: 1px dashed #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.course-duration {
+  color: var(--secondary-color);
+  font-size: 0.95rem;
+  background: #e3f2fd;
+  padding: 4px 10px;
+  border-radius: 15px;
+}
+
+.info-box {
+  background: #e3f2fd;
+  padding: 18px;
+  border-radius: 10px;
+  margin: 20px 0;
+  border-left: 5px solid var(--secondary-color);
+}
+
+@media (max-width: 1100px) {
+  .mindmap {
+    min-width: 800px;
+  }
+  
+  .node {
+    padding: 15px 20px;
+    min-width: 160px;
+    margin: 0 15px;
+  }
+}
+
+@media (max-width: 850px) {
+  .mindmap {
+    min-width: 600px;
+  }
+  
+  .node {
+    padding: 12px 15px;
+    min-width: 140px;
+    margin: 0 10px;
+    font-size: 0.9rem;
+  }
+  
+  .node i {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    padding: 10px;
+  }
+  
+  header {
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .mindmap {
+    min-width: 500px;
+  }
+  
+  .level {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .node {
+    margin: 10px 0;
+    width: 220px;
+  }
+}
+
+@media (max-width: 500px) {
+  .mindmap {
+    min-width: 400px;
+  }
+  
+  .specializations {
+    grid-template-columns: 1fr;
+  }
+}
+
+.highlight {
+  background-color: #fff9c4;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.legend-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+}
+
+.legend-nda {
+  background: var(--nda-color);
+}
+
+.legend-ug {
+  background: var(--ug-color);
+}
+
+.legend-core {
+  background: var(--secondary-color);
+}
+
+.link-icon {
+  margin-top: 8px;
+  font-size: 0.7rem;
+  color: #3498db;
+}
+</style>
+<body>
+  <div class="container">
+    <header>
+      <h1>Engineering Career Roadmap</h1>
+      <p class="subtitle">Government of Jammu & Kashmir - Higher Education Department</p>
+      <p class="description">Explore your career options after 12th grade - choose between NDA or undergraduate engineering programs</p>
+    </header>
+
+    <div class="roadmap-container">
+      <div class="mindmap">
+        <svg class="connectors" id="connectors"></svg>
+        
+        <!-- Level 1: Start -->
+        <div class="level">
+          <div class="node core" id="start">
+            <i class="fas fa-user-graduate"></i>
+            <div>After 12th Grade</div>
+          </div>
+        </div>
+        
+        <!-- Level 2: Main Paths -->
+        <div class="level">
+          <div class="node nda" id="nda">
+            <i class="fas fa-shield-alt"></i>
+            <div>National Defence Academy</div>
+            <span class="exam-pill nda-pill">NDA Exam</span>
+          </div>
+          
+          <div class="node ug" id="ug">
+            <i class="fas fa-book"></i>
+            <div>Undergraduate Degrees</div>
+            <span class="exam-pill">JEE | JKCET</span>
+          </div>
+        </div>
+        
+        <!-- Level 3: NDA Path -->
+        <div class="level">
+          <div class="node nda" id="ssb">
+            <i class="fas fa-medal"></i>
+            <div>SSB Interview</div>
+            <span class="exam-pill nda-pill">5-Day Process</span>
+          </div>
+          
+          <div class="node nda" id="training">
+            <i class="fas fa-graduation-cap"></i>
+            <div>NDA Training</div>
+            <span class="exam-pill nda-pill">3 Years</span>
+          </div>
+          
+          <div class="node ug" id="be">
+            <i class="fas fa-cog"></i>
+            <div>B.E. Degrees</div>
+            <span class="exam-pill">4 Years</span>
+          </div>
+          
+          <div class="node ug" id="btech">
+            <i class="fas fa-microchip"></i>
+            <div>B.Tech Degrees</div>
+            <span class="exam-pill">4 Years</span>
+          </div>
+        </div>
+        
+        <!-- Level 4: Specializations -->
+        <div class="level">
+          <a href="https://www.upsc.gov.in/sites/default/files/Not_CDSE_I_2025_Eng_110124.pdf" target="_blank" class="node nda" id="army">
+            <i class="fas fa-hat-cowboy"></i>
+            <div>Indian Army</div>
+            <div class="link-icon">CDS Exam Details <i class="fas fa-external-link-alt"></i></div>
+          </a>
+          
+          <a href="https://indianairforce.nic.in/" target="_blank" class="node nda" id="navy">
+            <i class="fas fa-water"></i>
+            <div>Indian Navy</div>
+            <div class="link-icon">Navy Information <i class="fas fa-external-link-alt"></i></div>
+          </a>
+          
+          <a href="https://www.joinindiannavy.gov.in/en/page/selection-procedure.html" target="_blank" class="node nda" id="airforce">
+            <i class="fas fa-plane"></i>
+            <div>Indian Air Force</div>
+            <div class="link-icon">Selection Procedure <i class="fas fa-external-link-alt"></i></div>
+          </a>
+          
+          <div class="specializations">
+            <div class="specialization">
+              <h4>Computer Science</h4>
+              <p>4 Years</p>
+            </div>
+            <div class="specialization">
+              <h4>Mechanical</h4>
+              <p>4 Years</p>
+            </div>
+            <div class="specialization">
+              <h4>Electrical</h4>
+              <p>4 Years</p>
+            </div>
+            <div class="specialization">
+              <h4>Civil</h4>
+              <p>4 Years</p>
+            </div>
+            <div class="specialization">
+              <h4>Electronics</h4>
+              <p>4 Years</p>
+            </div>
+            <div class="specialization">
+              <h4>Information Technology</h4>
+              <p>4 Years</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color legend-nda"></div>
+        <span>NDA Path</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color legend-ug"></div>
+        <span>UG Path</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color legend-core"></div>
+        <span>Core Nodes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for UG Courses -->
+  <div class="modal" id="ugModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('ugModal')">&times;</span>
+      <h2>Undergraduate Degree Programs</h2>
+      <div class="info-box">
+        <p>Entrance Exams: <span class="highlight">JEE</span> (All India), <span class="highlight">JKCET</span> (J&K State)</p>
+      </div>
+      
+      <h3>Bachelor of Engineering (B.E.) - 4 Years</h3>
+      <ul class="course-list">
+        <li><span class="course-name">Computer Science & Engineering</span> <span class="course-duration">4 years</span></li>
+        <li><span class="course-name">Information Technology</span> <span class="course-duration">4 years</span></li>
+        <li><span class="course-name">Mechanical Engineering</span> <span class="course-duration">4 years</span></li>
+        <li><span class="course-name">Electrical Engineering</span> <span class="course-duration">4 years</span></li>
+        <li><span class="course-name">Civil Engineering</span> <span class="course-duration">4 years</span></li>
+        <li><span class="course-name">Electronics & Communication</span> <span class="course-duration">4 years</span></li>
+      </ul>
+      
+      <h3>Bachelor of Technology (B.Tech) - 4 Years</h3>
+      <ul class="course-list">
+        <li><span class="course-name">Computer Science & Engineering</span> <span class="course-duration">4 years</span></li>
+        <li><span class="course-name">Mechanical Engineering</span> <span class="course-duration">4 years</span></li>
+        <li><span class="course-name">Electrical Engineering</span> <span class="course-duration">4 years</span></li>
+        <li><span class="course-name">Civil Engineering</span> <span class="course-duration">4 years</span></li>
+        <li><span class="course-name">Chemical Engineering</span> <span class="course-duration">4 years</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal for NDA -->
+  <div class="modal" id="ndaModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('ndaModal')">&times;</span>
+      <h2>National Defence Academy (NDA)</h2>
+      <div class="info-box">
+        <p>Eligibility: 12th pass with Physics, Chemistry, and Mathematics</p>
+        <p>Age: 16.5 to 19.5 years</p>
+        <p>Selection Process: <span class="highlight">NDA Written Exam</span> followed by <span class="highlight">SSB Interview</span></p>
+      </div>
+      
+      <h3>After Selection</h3>
+      <ul class="course-list">
+        <li><span class="course-name">3 years training at NDA, Khadakwasla</span></li>
+        <li><span class="course-name">Commissioned as Officer in Indian Army, Navy or Air Force</span></li>
+        <li><span class="course-name">B.Tech degree awarded after completion</span></li>
+      </ul>
+      
+      <h3>Advantages</h3>
+      <ul class="course-list">
+        <li><span class="course-name">Prestigious career in defence services</span></li>
+        <li><span class="course-name">No tuition fees - stipend during training</span></li>
+        <li><span class="course-name">Assured employment after training</span></li>
+        <li><span class="course-name">Respect and job security</span></li>
+      </ul>
+    </div>
+  </div>
+
+ <script>
+
+
+// Draw connectors between nodes
+function drawConnectors() {
+  const svg = document.getElementById('connectors');
+  svg.innerHTML = `
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+      </marker>
+      <marker id="arrowhead-nda" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#9b59b6" />
+      </marker>
+      <marker id="arrowhead-ug" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#2ecc71" />
+      </marker>
+    </defs>
+  `;
+  
+  // Draw connections
+  connectNodes('start', 'nda', 'connector-nda');
+  connectNodes('start', 'ug', 'connector-ug');
+  connectNodes('nda', 'ssb', 'connector-nda');
+  connectNodes('ssb', 'training', 'connector-nda');
+  connectNodes('training', 'army', 'connector-nda');
+  connectNodes('training', 'navy', 'connector-nda');
+  connectNodes('training', 'airforce', 'connector-nda');
+  connectNodes('ug', 'be', 'connector-ug');
+  connectNodes('ug', 'btech', 'connector-ug');
+}
+
+function connectNodes(fromId, toId, connectorClass) {
+  const from = document.getElementById(fromId);
+  const to = document.getElementById(toId);
+  const svg = document.getElementById('connectors');
+  
+  if (!from || !to) return;
+  
+  const fromRect = from.getBoundingClientRect();
+  const toRect = to.getBoundingClientRect();
+  const svgRect = svg.getBoundingClientRect();
+  
+  const fromX = fromRect.left + fromRect.width/2 - svgRect.left;
+  const fromY = fromRect.bottom - svgRect.top;
+  const toX = toRect.left + toRect.width/2 - svgRect.left;
+  const toY = toRect.top - svgRect.top;
+  
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', `M${fromX},${fromY} C${fromX},${fromY+50} ${toX},${toY-50} ${toX},${toY}`);
+  path.setAttribute('class', `connector ${connectorClass}`);
+  
+  // Use appropriate arrowhead
+  if (connectorClass === 'connector-nda') {
+    path.setAttribute('marker-end', 'url(#arrowhead-nda)');
+  } else if (connectorClass === 'connector-ug') {
+    path.setAttribute('marker-end', 'url(#arrowhead-ug)');
+  }
+  
+  svg.appendChild(path);
+}
+
+function showModal(modalId) {
+  document.getElementById(modalId).style.display = 'flex';
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).style.display = 'none';
+}
+
+// Initialize on load
+window.onload = function() {
+  drawConnectors();
+  
+  // Add click events to nodes
+  document.getElementById('ug').addEventListener('click', () => showModal('ugModal'));
+  document.getElementById('nda').addEventListener('click', () => showModal('ndaModal'));
+  document.getElementById('be').addEventListener('click', () => showModal('ugModal'));
+  document.getElementById('btech').addEventListener('click', () => showModal('ugModal'));
+};
+
+// Redraw connectors on resize
+window.onresize = drawConnectors;
+
+// Close modal when clicking outside of modal content
+window.onclick = function(event) {
+  const modals = document.getElementsByClassName('modal');
+  for (let i = 0; i < modals.length; i++) {
+    if (event.target == modals[i]) {
+      modals[i].style.display = 'none';
+    }
+  }
+}
+ </script>
+</body>
+</html>
+
+

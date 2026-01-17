@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Commerce Career Roadmap (Jammu & Kashmir)</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+<style>
+  :root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --light-color: #ecf0f1;
+  --shadow-color: rgba(0,0,0,0.1);
+  --ug-color: #2ecc71;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  color: #333;
+  line-height: 1.6;
+}
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+header {
+  text-align: center;
+  margin-bottom: 40px;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+h1 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+.subtitle {
+  color: var(--secondary-color);
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+.description {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #555;
+  font-size: 1.1rem;
+}
+.roadmap-container {
+  position: relative;
+  overflow: auto;
+  padding: 30px 0;
+}
+.mindmap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 1000px;
+  position: relative;
+}
+.level {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  margin: 25px 0;
+}
+.node {
+  position: relative;
+  background: white;
+  padding: 18px 30px;
+  border-radius: 12px;
+  margin: 0 20px;
+  text-align: center;
+  font-weight: bold;
+  color: var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  z-index: 2;
+  min-width: 180px;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+.node:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+.node i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--secondary-color);
+}
+.node.ug {
+  border-color: var(--ug-color);
+}
+.node.ug i {
+  color: var(--ug-color);
+}
+.node.core {
+  background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+  border-color: var(--secondary-color);
+}
+.node.core i {
+  color: var(--primary-color);
+}
+.connectors {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+.connector {
+  stroke: var(--secondary-color);
+  stroke-width: 3;
+  fill: none;
+  marker-end: url(#arrowhead);
+}
+.connector-ug {
+  stroke: var(--ug-color);
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: white;
+  padding: 35px;
+  border-radius: 15px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  position: relative;
+}
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #777;
+  transition: color 0.3s;
+}
+.close-modal:hover {
+  color: var(--accent-color);
+}
+.course-list {
+  list-style-type: none;
+  margin-top: 20px;
+}
+.course-list li {
+  padding: 12px 0;
+  border-bottom: 1px dashed #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.course-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.course-duration {
+  color: var(--secondary-color);
+  font-size: 0.95rem;
+  background: #e3f2fd;
+  padding: 4px 10px;
+  border-radius: 15px;
+}
+.info-box {
+  background: #e3f2fd;
+  padding: 18px;
+  border-radius: 10px;
+  margin: 20px 0;
+  border-left: 5px solid var(--secondary-color);
+}
+@media (max-width: 1100px) {
+  .mindmap { min-width: 800px; }
+  .node { padding: 15px 20px; min-width: 160px; margin: 0 15px;}
+}
+@media (max-width: 850px) {
+  .mindmap { min-width: 600px; }
+  .node { padding: 12px 15px; min-width: 140px; margin: 0 10px; font-size: 0.9rem;}
+  .node i { font-size: 1.6rem; }
+}
+@media (max-width: 650px) {
+  .container { padding: 10px;}
+  header { padding: 15px;}
+  h1 { font-size: 2rem;}
+  .subtitle { font-size: 1.1rem;}
+  .mindmap { min-width: 500px;}
+  .level { flex-direction: column; align-items: center;}
+  .node { margin: 10px 0; width: 220px;}
+}
+
+</style>
+<body>
+<div class="container">
+  <header>
+    <h1>Commerce Career Roadmap</h1>
+    <div class="subtitle">Explore Key Undergraduate Courses & Career Options in Jammu & Kashmir</div>
+  </header>
+  <div class="roadmap-container">
+    <svg id="connectors" class="connectors" width="100%" height="600" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="mindmap">
+      <!-- Root node -->
+      <div class="level">
+        <div class="node core" id="start"><i class="fas fa-briefcase"></i>Commerce Stream</div>
+      </div>
+      <!-- Undergrad courses -->
+      <div class="level">
+        <div class="node ug" id="bcom"><i class="fas fa-user-graduate"></i> B.Com</div>
+        <div class="node ug" id="bba"><i class="fas fa-user-tie"></i> BBA</div>
+        <div class="node ug" id="ca"><i class="fas fa-file-invoice"></i> CA</div>
+        <div class="node ug" id="cs"><i class="fas fa-balance-scale"></i> CS</div>
+      </div>
+      <!-- Career options -->
+      <div class="level">
+        <div class="node" id="banking"><i class="fas fa-university"></i> Banking & Finance</div>
+        <div class="node" id="accounting"><i class="fas fa-file-invoice-dollar"></i> Accounts & Auditing</div>
+        <div class="node" id="business-development"><i class="fas fa-briefcase"></i> Business Development</div>
+        <div class="node" id="sales-marketing"><i class="fas fa-chart-line"></i> Sales & Marketing</div>
+        <div class="node" id="ecommerce"><i class="fas fa-globe"></i> E-Commerce & Digital</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<div id="bcomModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('bcomModal')">&times;</span>
+    <h3>B.Com (Bachelor of Commerce)</h3>
+    <div class="info-box">
+      <p>3-year undergraduate degree focusing on accountancy, economics, business law. Suitable for careers in finance, banking, and further studies.</p>
+      <ul class="course-list">
+        <li><span class="course-name">Core Subjects</span><span>Accounting, Economics, Law, Business Management</span></li>
+        <li><span class="course-name">Duration</span><span>3 Years</span></li>
+        <li><span class="course-name">Entrance Exam</span><span>CUET (for admissions in many JK colleges)</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="bbaModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('bbaModal')">&times;</span>
+    <h3>BBA (Bachelor of Business Administration)</h3>
+    <div class="info-box">
+      <p>3-year undergraduate degree centered on business management, marketing, and HR. Opens opportunities in management traineeships and startups.</p>
+      <ul class="course-list">
+        <li><span class="course-name">Specializations</span><span>Marketing, HR, Finance, International Business</span></li>
+        <li><span class="course-name">Duration</span><span>3 Years</span></li>
+        <li><span class="course-name">Entrance Exam</span><span>CUET or Merit-Based Admission</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="caModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('caModal')">&times;</span>
+    <h3>CA (Chartered Accountant)</h3>
+    <div class="info-box">
+      <p>Professional course offering expertise in auditing, taxation, finance, and accounting. Rigorous exams and practical training over 3+ years.</p>
+      <ul class="course-list">
+        <li><span class="course-name">Key Stages</span><span>CPT, IPCC, Final Exams</span></li>
+        <li><span class="course-name">Duration</span><span>3-5 Years (depends on clearing exams)</span></li>
+        <li><span class="course-name">Entrance Exam</span><span>CPT or Foundation Level for Beginners</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="csModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('csModal')">&times;</span>
+    <h3>CS (Company Secretary)</h3>
+    <div class="info-box">
+      <p>Professional qualification in company law, secretarial practice, and governance. Important for legal compliance and corporate leadership roles.</p>
+      <ul class="course-list">
+        <li><span class="course-name">Focus Areas</span><span>Company Law, Corporate Governance, Tax Laws</span></li>
+        <li><span class="course-name">Duration</span><span>3-4 Years</span></li>
+        <li><span class="course-name">Entrance Exam</span><span>CS Foundation</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="bankingModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('bankingModal')">&times;</span>
+    <h3>Banking & Finance</h3>
+    <div class="info-box">
+      <p>Jobs in banks (like J&K Bank), finance companies & insurance sectors. Roles vary from clerks to financial advisors. Strong demand in J&K region.</p>
+      <ul class="course-list">
+        <li><span class="course-name">Specializations</span><span>Retail Banking, Risk Management, Insurance</span></li>
+        <li><span class="course-name">Duration</span><span>Varies - UG & PG courses (2-3 Years)</span></li>
+        <li><span class="course-name">Entrance Exams</span><span>IBPS, SBI PO, JK Bank Recruitment Exams</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="accountingModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('accountingModal')">&times;</span>
+    <h3>Accounts & Auditing</h3>
+    <div class="info-box">
+      <p>Accountant, auditor, and tax consultant roles across businesses & government. Professional courses such as CA & CS enhance prospects.</p>
+      <ul class="course-list">
+        <li><span class="course-name">Specializations</span><span>Taxation, Auditing, Cost Accounting</span></li>
+        <li><span class="course-name">Duration</span><span>3-5 Years (Professional courses vary)</span></li>
+        <li><span class="course-name">Entrance Exams</span><span>None for B.Com; Professional exams for CA/CS</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="business-developmentModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('business-developmentModal')">&times;</span>
+    <h3>Business Development</h3>
+    <div class="info-box">
+      <p>Growth roles in startups, SMEs & retail. Involves sales, client management, partnerships and market expansion in J&K.</p>
+      <ul class="course-list">
+        <li><span class="course-name">Focus Areas</span><span>Client Management, Sales Strategy, Market Analysis</span></li>
+        <li><span class="course-name">Duration</span><span>3 Years (UG Degree)</span></li>
+        <li><span class="course-name">Entrance Exams</span><span>Generally Merit-based or CUET</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="sales-marketingModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('sales-marketingModal')">&times;</span>
+    <h3>Sales & Marketing</h3>
+    <div class="info-box">
+      <p>Marketing, branding, and sales roles across FMCG, retail, telecom, and manufacturing in J&K. Digital marketing is a growing field.</p>
+      <ul class="course-list">
+        <li><span class="course-name">Specializations</span><span>Digital Marketing, Sales Management, Advertising</span></li>
+        <li><span class="course-name">Duration</span><span>3 Years (UG Degree)</span></li>
+        <li><span class="course-name">Entrance Exams</span><span>Mostly Merit or CUET-based</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="ecommerceModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('ecommerceModal')">&times;</span>
+    <h3>E-Commerce & Digital</h3>
+    <div class="info-box">
+      <p>E-commerce operations, digital marketing, logistics support and online business in Jammu & Kashmir. Strong growth potential.</p>
+      <ul class="course-list">
+        <li><span class="course-name">Specializations</span><span>SEO, SEM, Content Marketing, Social Media</span></li>
+        <li><span class="course-name">Duration</span><span>Varies, Certificates to UG Degrees</span></li>
+        <li><span class="course-name">Entrance Exams</span><span>Usually none</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  function drawConnectors() {
+  const svg = document.getElementById('connectors');
+  svg.innerHTML = `
+    <defs>
+      <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L0,6 L8,3 z" fill="#3498db"/>
+      </marker>
+      <marker id="arrowhead-ug" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L0,6 L8,3 z" fill="#2ecc71"/>
+      </marker>
+    </defs>
+  `;
+  connectNodes('start', 'bcom', 'connector-ug');
+  connectNodes('start', 'bba', 'connector-ug');
+  connectNodes('start', 'ca', 'connector-ug');
+  connectNodes('start', 'cs', 'connector-ug');
+
+  connectNodes('bcom', 'banking', 'connector');
+  connectNodes('bcom', 'accounting', 'connector');
+  connectNodes('bba', 'business-development', 'connector');
+  connectNodes('bba', 'sales-marketing', 'connector');
+  connectNodes('bba', 'ecommerce', 'connector');
+
+  connectNodes('ca', 'accounting', 'connector');
+  connectNodes('cs', 'accounting', 'connector');
+}
+
+function connectNodes(fromId, toId, connectorClass) {
+  const from = document.getElementById(fromId);
+  const to = document.getElementById(toId);
+  const svg = document.getElementById('connectors');
+  if (!from || !to) return;
+  const fromRect = from.getBoundingClientRect();
+  const toRect = to.getBoundingClientRect();
+  const svgRect = svg.getBoundingClientRect();
+  const fromX = fromRect.left + fromRect.width / 2 - svgRect.left;
+  const fromY = fromRect.bottom - svgRect.top;
+  const toX = toRect.left + toRect.width / 2 - svgRect.left;
+  const toY = toRect.top - svgRect.top;
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', `M${fromX},${fromY} C${fromX},${fromY + 50} ${toX},${toY - 50} ${toX},${toY}`);
+  path.setAttribute('class', `connector ${connectorClass}`);
+  if (connectorClass === 'connector-ug') {
+    path.setAttribute('marker-end', 'url(#arrowhead-ug)');
+  } else {
+    path.setAttribute('marker-end', 'url(#arrowhead)');
+  }
+  svg.appendChild(path);
+}
+
+function showModal(modalId) {
+  const m = document.getElementById(modalId);
+  if (m) m.style.display = 'flex';
+}
+
+function closeModal(modalId) {
+  const m = document.getElementById(modalId);
+  if (m) m.style.display = 'none';
+}
+
+window.onload = function () {
+  drawConnectors();
+  ['bcom', 'bba', 'ca', 'cs', 'banking', 'accounting', 'business-development', 'sales-marketing', 'ecommerce'].forEach(id => {
+    const modalId = id + 'Modal';
+    document.getElementById(id).addEventListener('click', () => showModal(modalId));
+  });
+};
+
+window.onresize = drawConnectors;
+
+window.onclick = function (event) {
+  const modals = document.getElementsByClassName('modal');
+  for (let i = 0; i < modals.length; i++) {
+    if (event.target === modals[i]) {
+      modals[i].style.display = 'none';
+    }
+  }
+};
+
+</script>
+</body>
+</html>

@@ -1,0 +1,726 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medical Career Roadmap</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<style>
+    :root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --light-color: #ecf0f1;
+  --shadow-color: rgba(0,0,0,0.1);
+  --mbbs-color: #9b59b6;
+  --ayurveda-color: #e67e22;
+  --bds-color: #16a085;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  color: #333;
+  line-height: 1.6;
+}
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+header {
+  text-align: center;
+  margin-bottom: 40px;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+h1 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+.subtitle {
+  color: var(--secondary-color);
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+.description {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #555;
+  font-size: 1.1rem;
+}
+.roadmap-container {
+  position: relative;
+  overflow: auto;
+  padding: 30px 0;
+}
+.mindmap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 1000px;
+  position: relative;
+}
+.level {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  margin: 25px 0;
+}
+.node {
+  position: relative;
+  background: white;
+  padding: 18px 30px;
+  border-radius: 12px;
+  margin: 0 20px;
+  text-align: center;
+  font-weight: bold;
+  color: var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  z-index: 2;
+  min-width: 180px;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+.node:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+.node i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--secondary-color);
+}
+.node.mbbs {
+  border-color: var(--mbbs-color);
+}
+.node.mbbs i {
+  color: var(--mbbs-color);
+}
+.node.ayurveda {
+  border-color: var(--ayurveda-color);
+}
+.node.ayurveda i {
+  color: var(--ayurveda-color);
+}
+.node.bds {
+  border-color: var(--bds-color);
+}
+.node.bds i {
+  color: var(--bds-color);
+}
+.node.core {
+  background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+  border-color: var(--secondary-color);
+}
+.node.core i {
+  color: var(--primary-color);
+}
+.connectors {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+.connector {
+  stroke: var(--secondary-color);
+  stroke-width: 3;
+  fill: none;
+  marker-end: url(#arrowhead);
+}
+.connector-mbbs {
+  stroke: var(--mbbs-color);
+}
+.connector-ayurveda {
+  stroke: var(--ayurveda-color);
+}
+.connector-bds {
+  stroke: var(--bds-color);
+}
+.specializations-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+  gap: 20px;
+}
+.specialization-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.specialization-group h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+  padding: 10px;
+  border-radius: 8px;
+}
+.specialization-group.mbbs h3 {
+  background-color: rgba(155, 89, 182, 0.1);
+  color: var(--mbbs-color);
+}
+.specialization-group.ayurveda h3 {
+  background-color: rgba(230, 126, 34, 0.1);
+  color: var(--ayurveda-color);
+}
+.specialization-group.bds h3 {
+  background-color: rgba(22, 160, 133, 0.1);
+  color: var(--bds-color);
+}
+.specialization {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.specialization:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+.specialization.mbbs:hover {
+  background: var(--mbbs-color);
+  color: white;
+}
+.specialization.ayurveda:hover {
+  background: var(--ayurveda-color);
+  color: white;
+}
+.specialization.bds:hover {
+  background: var(--bds-color);
+  color: white;
+}
+.specialization h4 {
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+.specialization p {
+  font-size: 0.9rem;
+  color: #666;
+}
+.specialization:hover p {
+  color: #eee;
+}
+.exam-pill {
+  display: inline-block;
+  background: var(--secondary-color);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-top: 12px;
+  font-weight: 600;
+}
+.mbbs-pill {
+  background: var(--mbbs-color);
+}
+.ayurveda-pill {
+  background: var(--ayurveda-color);
+}
+.bds-pill {
+  background: var(--bds-color);
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: white;
+  padding: 35px;
+  border-radius: 15px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #777;
+  transition: color 0.3s;
+}
+.close-modal:hover {
+  color: var(--accent-color);
+}
+.course-list {
+  list-style-type: none;
+  margin-top: 20px;
+}
+.course-list li {
+  padding: 12px 0;
+  border-bottom: 1px dashed #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.course-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.course-duration {
+  color: var(--secondary-color);
+  font-size: 0.95rem;
+  background: #e3f2fd;
+  padding: 4px 10px;
+  border-radius: 15px;
+}
+.info-box {
+  background: #e3f3fd;
+  padding: 18px;
+  border-radius: 10px;
+  margin: 20px 0;
+  border-left: 5px solid var(--secondary-color);
+}
+@media (max-width: 1100px) {
+  .mindmap {
+    min-width: 800px;
+  }
+  
+  .node {
+    padding: 15px 20px;
+    min-width: 160px;
+    margin: 0 15px;
+  }
+}
+@media (max-width: 850px) {
+  .mindmap {
+    min-width: 600px;
+  }
+  
+  .node {
+    padding: 12px 15px;
+    min-width: 140px;
+    margin: 0 10px;
+    font-size: 0.9rem;
+  }
+  
+  .node i {
+    font-size: 1.6rem;
+  }
+}
+@media (max-width: 650px) {
+  .container {
+    padding: 10px;
+  }
+  
+  header {
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .mindmap {
+    min-width: 500px;
+  }
+  
+  .level {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .node {
+    margin: 10px 0;
+    width: 220px;
+  }
+  
+  .specializations-container {
+    flex-direction: column;
+  }
+}
+@media (max-width: 500px) {
+  .mindmap {
+    min-width: 400px;
+  }
+}
+.highlight {
+  background-color: #fff9c4;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+.legend-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+}
+.legend-mbbs {
+  background: var(--mbbs-color);
+}
+.legend-ayurveda {
+  background: var(--ayurveda-color);
+}
+.legend-bds {
+  background: var(--bds-color);
+}
+.link-icon {
+  margin-top: 8px;
+  font-size: 0.7rem;
+  color: #3498db;
+}
+
+</style>
+<body>
+  <div class="container">
+    <header>
+      <h1>Medical Career Roadmap</h1>
+      <p class="subtitle">Government of Jammu & Kashmir - Higher Education Department</p>
+      <p class="description">Explore your career options in medicine after 12th grade - choose between MBBS, Ayurveda, or BDS programs</p>
+    </header>
+    <div class="roadmap-container">
+      <div class="mindmap">
+        <svg class="connectors" id="connectors"></svg>
+        
+        <!-- Level 1: Start -->
+        <div class="level">
+          <div class="node core" id="start">
+            <i class="fas fa-user-graduate"></i>
+            <div>After 12th Grade (Science with Biology)</div>
+          </div>
+        </div>
+        
+        <!-- Level 2: Main Paths -->
+        <div class="level">
+          <div class="node mbbs" id="mbbs">
+            <i class="fas fa-stethoscope"></i>
+            <div>MBBS</div>
+            <span class="exam-pill mbbs-pill">NEET Exam</span>
+          </div>
+          
+          <div class="node ayurveda" id="ayurveda">
+            <i class="fas fa-leaf"></i>
+            <div>BAMS (Ayurveda)</div>
+            <span class="exam-pill ayurveda-pill">NEET Exam</span>
+          </div>
+          
+          <div class="node bds" id="bds">
+            <i class="fas fa-tooth"></i>
+            <div>BDS (Dental)</div>
+            <span class="exam-pill bds-pill">NEET Exam</span>
+          </div>
+        </div>
+        
+        <!-- Level 3: Medical Paths -->
+        <div class="level">
+          <!-- MBBS Path -->
+          <div class="node mbbs" id="mbbs-course">
+            <i class="fas fa-hospital"></i>
+            <div>MBBS Course</div>
+            <span class="exam-pill mbbs-pill">5.5 Years</span>
+          </div>
+          
+          <!-- Ayurveda Path -->
+          <div class="node ayurveda" id="bams-course">
+            <i class="fas fa-spa"></i>
+            <div>BAMS Course</div>
+            <span class="exam-pill ayurveda-pill">5.5 Years</span>
+          </div>
+          
+          <!-- BDS Path -->
+          <div class="node bds" id="bds-course">
+            <i class="fas fa-tooth"></i>
+            <div>BDS Course</div>
+            <span class="exam-pill bds-pill">5 Years</span>
+          </div>
+        </div>
+        
+        <!-- Level 4: Specializations -->
+        <div class="level">
+          <div class="specializations-container">
+            <!-- MBBS Specializations -->
+            <div class="specialization-group mbbs">
+              <h3>MBBS Specializations</h3>
+              <div class="specialization mbbs" onclick="showModal('mbbsModal')">
+                <h4>MD/MS</h4>
+                <p>3 Years Specialization</p>
+              </div>
+              <div class="specialization mbbs" onclick="showModal('doctorModal')">
+                <h4>Medical Practitioner</h4>
+                <p>General Physician</p>
+              </div>
+              <div class="specialization mbbs" onclick="showModal('surgeonModal')">
+                <h4>Surgeon</h4>
+                <p>Various Specialties</p>
+              </div>
+            </div>
+            
+            <!-- Ayurveda Specializations -->
+            <div class="specialization-group ayurveda">
+              <h3>Ayurveda Specializations</h3>
+              <div class="specialization ayurveda" onclick="showModal('ayurvedaMdModal')">
+                <h4>MD Ayurveda</h4>
+                <p>3 Years Specialization</p>
+              </div>
+              <div class="specialization ayurveda" onclick="showModal('ayurvedaDoctorModal')">
+                <h4>Ayurvedic Doctor</h4>
+                <p>General Practice</p>
+              </div>
+              <div class="specialization ayurveda" onclick="showModal('panchakarmaModal')">
+                <h4>Panchakarma Specialist</h4>
+                <p>Detoxification Therapy</p>
+              </div>
+            </div>
+            
+            <!-- BDS Specializations -->
+            <div class="specialization-group bds">
+              <h3>BDS Specializations</h3>
+              <div class="specialization bds" onclick="showModal('mdsModal')">
+                <h4>MDS</h4>
+                <p>3 Years Specialization</p>
+              </div>
+              <div class="specialization bds" onclick="showModal('dentistModal')">
+                <h4>Dental Surgeon</h4>
+                <p>General Dentistry</p>
+              </div>
+              <div class="specialization bds" onclick="showModal('orthodontistModal')">
+                <h4>Orthodontist</h4>
+                <p>Teeth Alignment</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color legend-mbbs"></div>
+        <span>MBBS Path</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color legend-ayurveda"></div>
+        <span>Ayurveda Path</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color legend-bds"></div>
+        <span>BDS Path</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal for MBBS -->
+  <div class="modal" id="mbbsModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('mbbsModal')">&times;</span>
+      <h2>Bachelor of Medicine, Bachelor of Surgery (MBBS)</h2>
+      <div class="info-box">
+        <p>Entrance Exam: <span class="highlight">NEET</span> (National Eligibility cum Entrance Test)</p>
+        <p>Duration: 5.5 years (4.5 years academic education + 1 year internship)</p>
+      </div>
+      
+      <h3>Career Paths after MBBS</h3>
+      <ul class="course-list">
+        <li><span class="course-name">General Physician</span> <span class="course-duration">Practice after internship</span></li>
+        <li><span class="course-name">Postgraduate Specialization (MD/MS)</span> <span class="course-duration">3 years</span></li>
+        <li><span class="course-name">Super Specialization (DM/MCh)</span> <span class="course-duration">3 years</span></li>
+        <li><span class="course-name">Medical Research</span> <span class="course-duration">Various opportunities</span></li>
+        <li><span class="course-name">Government Medical Services</span> <span class="course-duration">Various positions</span></li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Modal for BAMS -->
+  <div class="modal" id="bamsModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('bamsModal')">&times;</span>
+      <h2>Bachelor of Ayurvedic Medicine and Surgery (BAMS)</h2>
+      <div class="info-box">
+        <p>Entrance Exam: <span class="highlight">NEET</span> (National Eligibility cum Entrance Test)</p>
+        <p>Duration: 5.5 years (4.5 years academic education + 1 year internship)</p>
+      </div>
+      
+      <h3>Career Paths after BAMS</h3>
+      <ul class="course-list">
+        <li><span class="course-name">Ayurvedic Doctor</span> <span class="course-duration">Practice after internship</span></li>
+        <li><span class="course-name">Postgraduate Specialization (MD Ayurveda)</span> <span class="course-duration">3 years</span></li>
+        <li><span class="course-name">Panchakarma Specialist</span> <span class="course-duration">Specialized training</span></li>
+        <li><span class="course-name">Ayurvedic Research</span> <span class="course-duration">Various opportunities</span></li>
+        <li><span class="course-name">Government Ayurvedic Services</span> <span class="course-duration">Various positions</span></li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Modal for BDS -->
+  <div class="modal" id="bdsModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('bdsModal')">&times;</span>
+      <h2>Bachelor of Dental Surgery (BDS)</h2>
+      <div class="info-box">
+        <p>Entrance Exam: <span class="highlight">NEET</span> (National Eligibility cum Entrance Test)</p>
+        <p>Duration: 5 years (4 years academic education + 1 year internship)</p>
+      </div>
+      
+      <h3>Career Paths after BDS</h3>
+      <ul class="course-list">
+        <li><span class="course-name">Dental Surgeon</span> <span class="course-duration">Practice after internship</span></li>
+        <li><span class="course-name">Postgraduate Specialization (MDS)</span> <span class="course-duration">3 years</span></li>
+        <li><span class="course-name">Orthodontist</span> <span class="course-duration">Specialized training</span></li>
+        <li><span class="course-name">Oral Surgeon</span> <span class="course-duration">Specialized training</span></li>
+        <li><span class="course-name">Government Dental Services</span> <span class="course-duration">Various positions</span></li>
+      </ul>
+    </div>
+  </div>
+  <script>
+
+
+
+// Draw connectors between nodes
+function drawConnectors() {
+  const svg = document.getElementById('connectors');
+  svg.innerHTML = `
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+      </marker>
+      <marker id="arrowhead-mbbs" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#9b59b6" />
+      </marker>
+      <marker id="arrowhead-ayurveda" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#e67e22" />
+      </marker>
+      <marker id="arrowhead-bds" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#16a085" />
+      </marker>
+    </defs>
+  `;
+  
+  // Draw connections
+  connectNodes('start', 'mbbs', 'connector-mbbs');
+  connectNodes('start', 'ayurveda', 'connector-ayurveda');
+  connectNodes('start', 'bds', 'connector-bds');
+  connectNodes('mbbs', 'mbbs-course', 'connector-mbbs');
+  connectNodes('ayurveda', 'bams-course', 'connector-ayurveda');
+  connectNodes('bds', 'bds-course', 'connector-bds');
+}
+
+function connectNodes(fromId, toId, connectorClass) {
+  const from = document.getElementById(fromId);
+  const to = document.getElementById(toId);
+  const svg = document.getElementById('connectors');
+  
+  if (!from || !to) return;
+  
+  const fromRect = from.getBoundingClientRect();
+  const toRect = to.getBoundingClientRect();
+  const svgRect = svg.getBoundingClientRect();
+  
+  const fromX = fromRect.left + fromRect.width/2 - svgRect.left;
+  const fromY = fromRect.bottom - svgRect.top;
+  const toX = toRect.left + toRect.width/2 - svgRect.left;
+  const toY = toRect.top - svgRect.top;
+  
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', `M${fromX},${fromY} C${fromX},${fromY+50} ${toX},${toY-50} ${toX},${toY}`);
+  path.setAttribute('class', `connector ${connectorClass}`);
+  
+  // Use appropriate arrowhead
+  if (connectorClass === 'connector-mbbs') {
+    path.setAttribute('marker-end', 'url(#arrowhead-mbbs)');
+  } else if (connectorClass === 'connector-ayurveda') {
+    path.setAttribute('marker-end', 'url(#arrowhead-ayurveda)');
+  } else if (connectorClass === 'connector-bds') {
+    path.setAttribute('marker-end', 'url(#arrowhead-bds)');
+  }
+  
+  svg.appendChild(path);
+}
+
+function showModal(modalId) {
+  document.getElementById(modalId).style.display = 'flex';
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).style.display = 'none';
+}
+
+// Initialize on load
+window.onload = function() {
+  drawConnectors();
+  
+  // Add click events to nodes
+  document.getElementById('mbbs').addEventListener('click', () => showModal('mbbsModal'));
+  document.getElementById('ayurveda').addEventListener('click', () => showModal('bamsModal'));
+  document.getElementById('bds').addEventListener('click', () => showModal('bdsModal'));
+  document.getElementById('mbbs-course').addEventListener('click', () => showModal('mbbsModal'));
+  document.getElementById('bams-course').addEventListener('click', () => showModal('bamsModal'));
+  document.getElementById('bds-course').addEventListener('click', () => showModal('bdsModal'));
+};
+
+// Redraw connectors on resize
+window.onresize = drawConnectors;
+
+// Close modal when clicking outside of modal content
+window.onclick = function(event) {
+  const modals = document.getElementsByClassName('modal');
+  for (let i = 0; i < modals.length; i++) {
+    if (event.target == modals[i]) {
+      modals[i].style.display = 'none';
+    }
+  }
+}
+
+  </script>
+</body>
+</html>

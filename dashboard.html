@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PathFinder - Career Guidance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 32px;
+            color: #6a11cb;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin: 10px 0;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0; /* fix: needed for fadeIn animation */
+        }
+        
+        .card-full {
+            grid-column: 1 / -1;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f2f6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h2 i {
+            color: #6a11cb;
+        }
+        
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: #6a11cb;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #fd746c;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .feature i {
+            font-size: 24px;
+            color: #6a11cb;
+            margin-bottom: 10px;
+        }
+        
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .path-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .path-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #6a11cb;
+        }
+        
+        .path-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .path-card p {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .testimonial {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .testimonial .author {
+            font-weight: 600;
+            color: #6a11cb;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: white;
+            padding: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .path-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* fix: added fadeIn keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>PathFinder <span>Career Guidance</span></h1>
+            </div>
+            <p class="subtitle">Discover your perfect career path with our intelligent assessment</p>
+        </header>
+
+        <div class="dashboard">
+            <div class="card card-full">
+                <h2><i class="fas fa-crosshairs"></i> Find Your Career Path</h2>
+                <p>Take our specialized assessment test to discover careers that match your interests, strengths, and personality.</p>
+                
+                <div class="btn-container">
+                    <a href="#" class="btn btn-primary">10th Grade Assessment</a>
+                    <a href="#" class="btn btn-secondary">12th Grade Assessment</a>
+                </div>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <h3>20 Questions</h3>
+                        <p>Quick & insightful assessment</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Personalized Report</h3>
+                        <p>Detailed analysis of your strengths</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-road"></i>
+                        <h3>Career Roadmap</h3>
+                        <p>Step-by-step guidance to your goals</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-user-graduate"></i> For 10th Students</h2>
+                <p>Confused about which stream to choose after 10th? Our assessment will help you identify the right path based on your interests and abilities.</p>
+                
+                <div class="path-cards">
+                    <div class="path-card">
+                        <h3>Science Stream</h3>
+                        <p>Physics, Chemistry, Biology, Mathematics</p>
+                    </div>
+                    <div class="path-card">
+                        <h3>Commerce Stream</h3>
+                        <p>Accountancy, Business Studies, Economics</p>
+                    </div>
+                    <div class="path-card">
+                        <h3>Arts/Humanities</h3>
+                        <p>History, Psychology, Sociology, Languages</p>
+                    </div>
+                    <div class="path-card">
+                        <h3>Vocational Courses</h3>
+                        <p>IT, Design, Hospitality, and more</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-book-open"></i> For 12th Students</h2>
+                <p>Unsure about what to do after 12th? Discover undergraduate programs, professional courses, and career options that match your profile.</p>
+                
+                <div class="path-cards">
+                    <div class="path-card">
+                        <h3>Engineering & Technology</h3>
+                        <p>Computer Science, Mechanical, Civil, etc.</p>
+                    </div>
+                    <div class="path-card">
+                        <h3>Medical Sciences</h3>
+                        <p>MBBS, Nursing, Pharmacy, Physiotherapy</p>
+                    </div>
+                    <div class="path-card">
+                        <h3>Commerce & Business</h3>
+                        <p>B.Com, BBA, CA, CS, CFA</p>
+                    </div>
+                    <div class="path-card">
+                        <h3>Arts & Humanities</h3>
+                        <p>Psychology, Sociology, Literature, History</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card card-full">
+                <h2><i class="fas fa-lightbulb"></i> How It Works</h2>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-1"></i> <!-- fix: changed later in JS explanation -->
+                        <h3>Take the Assessment</h3>
+                        <p>Answer 20 simple questions about your interests and preferences</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-2"></i>
+                        <h3>Get Your Profile</h3>
+                        <p>Receive a detailed report on your strengths and career matches</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-3"></i>
+                        <h3>Explore Your Path</h3>
+                        <p>Discover courses, colleges, and opportunities in your field</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card card-full">
+                <h2><i class="fas fa-graduation-cap"></i> Opportunities & Resources</h2>
+                <p>We provide comprehensive information about various career paths including required qualifications, top colleges, entrance exams, and future prospects.</p>
+                
+                <div class="path-cards">
+                    <div class="path-card">
+                        <h3>Top Colleges</h3>
+                        <p>IITs, NITs, AIIMS, IIMs, and other premier institutions</p>
+                    </div>
+                    <div class="path-card">
+                        <h3>Entrance Exams</h3>
+                        <p>JEE, NEET, CLAT, CAT, UPSC, and more</p>
+                    </div>
+                    <div class="path-card">
+                        <h3>Scholarships</h3>
+                        <p>Financial aid opportunities for deserving students</p>
+                    </div>
+                    <div class="path-card">
+                        <h3>Career Guidance</h3>
+                        <p>One-on-one counseling with industry experts</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card card-full">
+                <h2><i class="fas fa-comments"></i> What Students Say</h2>
+                
+                <div class="testimonial">
+                    <p>"The assessment helped me realize my interest in psychology. I was confused between engineering and humanities, but now I have a clear path!"</p>
+                    <div class="author">- Priya, 10th Grade Student</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"After getting my assessment report, I decided to pursue BBA instead of traditional B.Com. The detailed information about career opportunities was really helpful."</p>
+                    <div class="author">- Rohan, 12th Grade Student</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>PathFinder Career Guidance Platform &copy; 2023. All rights reserved.</p>
+            <p>Start your journey to a successful career today!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple animation for page elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                // fix: corrected string template for animation
+                card.style.animation = `fadeIn 0.5s ease forwards ${index * 0.2}s`;
+            });
+            
+            // Add hover effect to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10th Student Test - Slideshow</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background: linear-gradient(135deg, #87CEEB 0%, #B0E2FF 100%);
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    
+    .quiz-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      width: 90%;
+      max-width: 700px;
+      padding: 25px;
+      position: relative;
+    }
+    
+    h2 { 
+      text-align: center; 
+      color: #1E90FF; 
+      margin-bottom: 25px;
+      font-size: 28px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background: #E6F2FF;
+      border-radius: 4px;
+      margin-bottom: 25px;
+      overflow: hidden;
+    }
+    
+    .progress {
+      height: 100%;
+      background: #1E90FF;
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    
+    .question-counter {
+      text-align: center;
+      color: #4682B4;
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .question-box {
+      background: #F0F8FF;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+      min-height: 200px;
+      border: 1px solid #B0E2FF;
+    }
+    
+    .question-text {
+      font-size: 18px;
+      color: #2F4F4F;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .options-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    
+    label {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid #B0E2FF;
+    }
+    
+    label:hover {
+      background: #E6F2FF;
+      border-color: #87CEEB;
+      transform: translateY(-2px);
+    }
+    
+    input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #1E90FF;
+    }
+    
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .prev-btn {
+      background: #87CEEB;
+      color: white;
+    }
+    
+    .prev-btn:hover {
+      background: #5F9EA0;
+      transform: translateY(-2px);
+    }
+    
+    .next-btn {
+      background: #1E90FF;
+      color: white;
+    }
+    
+    .next-btn:hover {
+      background: #0066CC;
+      transform: translateY(-2px);
+    }
+    
+    .submit-btn {
+      background: #4682B4;
+      color: white;
+      margin: 20px auto;
+      display: block;
+      padding: 14px 30px;
+    }
+    
+    .submit-btn:hover {
+      background: #36648B;
+      transform: scale(1.05);
+    }
+    
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .icon {
+      margin-right: 8px;
+      font-size: 18px;
+    }
+    
+    /* Animation for question transitions */
+    .question-box {
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive design */
+    @media (max-width: 600px) {
+      .quiz-container {
+        width: 95%;
+        padding: 15px;
+      }
+      
+      .question-box {
+        padding: 15px;
+        min-height: 180px;
+      }
+      
+      button {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2>10th Grade Career Assessment</h2>
+    
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    
+    <div class="question-counter" id="question-counter">Question 1 of 15</div>
+    
+    <div class="question-box">
+      <div class="question-text" id="question-text"></div>
+      <div class="options-container" id="options-container"></div>
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" id="prev-btn" disabled>
+        <span class="icon">←</span> Previous
+      </button>
+      <button class="next-btn" id="next-btn">
+        Next <span class="icon">→</span>
+      </button>
+    </div>
+    
+    <button class="submit-btn" id="submit-btn" style="display:none;">Submit Test</button>
+  </div>
+
+  <script>
+    const questions10 = [
+      { q:"Which subject do you like most?", o:["Biology","Computer","Mathematics","Commerce"], v:["bio","comp","math","commerce"] },
+      { q:"What excites you more?", o:["Human body","Coding","Puzzles","Business"], v:["bio","comp","math","commerce"] },
+      { q:"Your favorite hobby?", o:["Gardening","Gaming","Math riddles","Stock Market"], v:["bio","comp","math","commerce"] },
+      { q:"Preferred career?", o:["Doctor","Software","Scientist","Entrepreneur"], v:["bio","comp","math","commerce"] },
+      { q:"What do you prefer reading?", o:["Biology book","Coding blog","Math journal","Business news"], v:["bio","comp","math","commerce"] },
+      { q:"Which class you enjoy?", o:["Science lab","Computer lab","Maths","Economics"], v:["bio","comp","math","commerce"] },
+      { q:"What inspires you?", o:["Doctors","Programmers","Mathematicians","Businessmen"], v:["bio","comp","math","commerce"] },
+      { q:"What do you want to solve?", o:["Diseases","Tech issues","Math problems","Business challenges"], v:["bio","comp","math","commerce"] },
+      { q:"Best activity?", o:["Experimenting","Coding","Math quiz","Marketing"], v:["bio","comp","math","commerce"] },
+      { q:"Role model?", o:["Scientist","Tech founder","Mathematician","Business leader"], v:["bio","comp","math","commerce"] },
+      { q:"Choose one:", o:["Doctor","Engineer","Math Prof","CEO"], v:["bio","comp","math","commerce"] },
+      { q:"What do you enjoy in free time?", o:["Health articles","Tech videos","Math games","Finance tips"], v:["bio","comp","math","commerce"] },
+      { q:"School project?", o:["Biology project","App project","Math model","Business project"], v:["bio","comp","math","commerce"] },
+      { q:"What would you invent?", o:["Medicine","App","Math theorem","Business idea"], v:["bio","comp","math","commerce"] },
+      { q:"Future goal?", o:["Doctor","Software Engineer","Researcher","Businessman"], v:["bio","comp","math","commerce"] }
+    ];
+
+    let currentQuestion = 0;
+    const userAnswers = new Array(questions10.length).fill(null);
+
+    // Initialize the quiz
+    function initQuiz() {
+      showQuestion(currentQuestion);
+      updateProgressBar();
+      updateNavigationButtons();
+    }
+
+    // Display the current question
+    function showQuestion(index) {
+      const question = questions10[index];
+      document.getElementById('question-text').textContent = question.q;
+     document.getElementById('question-counter').textContent = `Question ${index + 1} of ${questions10.length}`;
+
+      
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+      
+      question.o.forEach((option, i) => {
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'question';
+        input.value = question.v[i];
+        input.checked = userAnswers[index] === question.v[i];
+        
+        input.addEventListener('change', () => {
+          userAnswers[index] = question.v[i];
+          updateNavigationButtons();
+        });
+        
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(option));
+        optionsContainer.appendChild(label);
+      });
+    }
+
+    // Update progress bar
+    function updateProgressBar() {
+      const progress = ((currentQuestion + 1) / questions10.length) * 100;
+     document.getElementById('progress').style.width = `${progress}%`;
+
+    }
+
+    // Update navigation buttons state
+    function updateNavigationButtons() {
+      document.getElementById('prev-btn').disabled = currentQuestion === 0;
+      
+      if (currentQuestion === questions10.length - 1) {
+        document.getElementById('next-btn').style.display = 'none';
+        document.getElementById('submit-btn').style.display = 'block';
+      } else {
+        document.getElementById('next-btn').style.display = 'block';
+        document.getElementById('submit-btn').style.display = 'none';
+      }
+      
+      // Enable next button if current question is answered
+      document.getElementById('next-btn').disabled = userAnswers[currentQuestion] === null;
+    }
+
+    // Navigate to next question
+    function nextQuestion() {
+      if (currentQuestion < questions10.length - 1) {
+        currentQuestion++;
+        showQuestion(currentQuestion);
+        updateProgressBar();
+        updateNavigationButtons();
+      }
+    }
+
+    // Navigate to previous question
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion(currentQuestion);
+        updateProgressBar();
+        updateNavigationButtons();
+      }
+    }
+
+    // Submit the test
+    function submitTest() {
+      // Calculate scores
+      const scores = {
+        bio: 0,
+        comp: 0,
+        math: 0,
+        commerce: 0
+      };
+      
+      userAnswers.forEach(answer => {
+        if (answer && scores.hasOwnProperty(answer)) {
+          scores[answer]++;
+        }
+      });
+      
+      // Find the best match
+      let best = "bio";
+      for (const key in scores) {
+        if (scores[key] > scores[best]) {
+          best = key;
+        }
+      }
+      
+      const course10 = { 
+        bio: "Biology / Medicine", 
+        comp: "Computer Science / IT", 
+        math: "Mathematics / Pure Science", 
+        commerce: "Commerce / Business" 
+      };
+      
+      // Store results
+      localStorage.setItem("studentCourse", course10[best]);
+      localStorage.setItem("studentLevel", "10th");
+      
+      // Redirect to results page - CHANGED TO result10th.html
+      window.location.href = "result 10th.html";
+    }
+
+    // Event listeners
+    document.getElementById('next-btn').addEventListener('click', nextQuestion);
+    document.getElementById('prev-btn').addEventListener('click', prevQuestion);
+    document.getElementById('submit-btn').addEventListener('click', submitTest);
+
+    // Initialize the quiz
+    initQuiz();
+  </script>
+</body>
+</html>

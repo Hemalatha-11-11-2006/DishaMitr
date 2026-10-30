@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Password</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .reset-container {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .reset-container h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .reset-container p {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 15px 12px 45px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: #777;
+    }
+
+    .code-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .code-group input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .send-btn {
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .send-btn:hover {
+      background: #f1f1f1;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: #4361ee;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .btn-primary:hover {
+      background: #3651c5;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #4361ee;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reset-container">
+    <h2>Reset password</h2>
+    <p>Enter your phone number or email address and we will send you a verification code to reset your password.</p>
+
+    <form>
+      <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input type="text" placeholder="Email address / +86 phone number" required>
+      </div>
+
+      <div class="code-group">
+        <input type="text" placeholder="Code" required>
+        <button type="button" class="send-btn">Send code</button>
+      </div>
+
+      <button type="submit" class="btn-primary">Continue</button>
+    </form>
+
+    <a href="login.html" class="back-link">Back to log in</a>
+  </div>
+
+</body>
+</html>

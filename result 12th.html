@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Result - Celebration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+      overflow: hidden;
+    }
+    h2 {
+      color: #d32f2f;
+      text-shadow: 0 0 8px #ff9800;
+    }
+    #result {
+      font-size: 22px;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #1a237e;
+      text-shadow: 0 0 5px #ff9800;
+      position: relative;
+      display: inline-block;
+      padding: 10px 20px;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #ff9800;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+    }
+    button:hover {
+      background: #e65100;
+    }
+
+    /* Roadmap Button Styling */
+    .roadmap-btn {
+      margin-top: 20px;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #ff9800, #e65100);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 0 15px rgba(255, 152, 0, 0.6);
+      animation: pulse 2s infinite;
+    }
+
+    .roadmap-btn:hover {
+      background: linear-gradient(135deg, #e65100, #ff9800);
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(255, 152, 0, 0.9), 0 0 50px rgba(255, 152, 0, 0.6);
+    }
+
+    /* Tooltip */
+    .roadmap-btn::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: #333;
+      color: #fff;
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      opacity: 0;
+      white-space: nowrap;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .roadmap-btn:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Ripple effect on click */
+    .roadmap-btn:active::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      animation: ripple 0.6s linear;
+      z-index: 0;
+    }
+
+    @keyframes ripple {
+      to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Pulse animation */
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 15px rgba(255,152,0,0.6); }
+      50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,152,0,0.8); }
+      100% { transform: scale(1); box-shadow: 0 0 15px rgba(255,152,0,0.6); }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="content">
+    <h2>🎉 Congratulations! 🎉</h2>
+    <div id="result"></div>
+    <br>
+    <button onclick="retakeTest()">Retake Test</button>
+    <br><br>
+    <!-- Road Map Button -->
+    <button class="roadmap-btn" onclick="goToroadEngineering()" data-tooltip="Explore your carrier using road map">
+      Road map to your carrier
+    </button>
+  </div>
+
+  <script>
+    const course = localStorage.getItem("studentCourse");
+    const level = localStorage.getItem("studentLevel");
+    document.getElementById("result").innerHTML =
+      `🎯 Based on your answers in <b>${level}</b>, your interest is: 
+      <span style="color:#d32f2f">${course}</span>`;
+
+    function retakeTest() {
+      window.location.href = "dashboardakka.html";
+    }
+
+    function goToRoadmap() {
+      // Change this to your actual roadmap file
+      window.location.href = "roadmap.html";
+    }
+
+    // 🎉 Confetti + Emoji Celebration
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const emojis = ["🎉","🎊","🎂","🎁","🎈","🍿","🥳","🏆","💯","👏"];
+    const colors = ["#ff0","#0f0","#0ff","#f0f","#f00","#ff9800"];
+
+    let particles = [];
+
+    class Particle {
+      constructor(x, y, isEmoji=false) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 14 + 8;
+        this.speedX = (Math.random() - 0.5) * 6;
+        this.speedY = Math.random() * -7 - 3;
+        this.gravity = 0.2;
+        this.rotation = Math.random() * 360;
+        this.isEmoji = isEmoji;
+        this.char = isEmoji ? emojis[Math.floor(Math.random() * emojis.length)] : null;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.speedY += this.gravity;
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.rotation += 5;
+      }
+      draw() {
+        if (this.isEmoji) {
+          ctx.font = `${this.size * 2}px serif`;
+          ctx.fillStyle = this.color;
+          ctx.fillText(this.char, this.x, this.y);
+        } else {
+          ctx.fillStyle = this.color;
+          ctx.save();
+          ctx.translate(this.x, this.y);
+          ctx.rotate(this.rotation * Math.PI / 180);
+          ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+          ctx.restore();
+        }
+      }
+    }
+
+    function burst(x, y) {
+      for(let i=0; i<25; i++){
+        particles.push(new Particle(x, y, Math.random() < 0.3));
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        p.update();
+        p.draw();
+        if(p.y > canvas.height+50) particles.splice(index, 1);
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // 🎊 Bursts below the result box
+    function partyBursts(){
+      const resultBox = document.getElementById("result");
+      const rect = resultBox.getBoundingClientRect();
+
+      burst(rect.left + 20, rect.bottom + window.scrollY);
+      burst(rect.right - 20, rect.bottom + window.scrollY);
+    }
+
+    setInterval(partyBursts, 2000);
+
+    function goToroadEngineering() {
+
+   window.location.href = "Engineering.html"; 
+
+ 
+
+}
+  </script>
+</body>
+</html>

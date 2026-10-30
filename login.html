@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      width: 900px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    /* Left side image */
+    .image-section {
+      flex: 1;
+      background: url("img5.jpg") no-repeat center center/cover;
+    }
+
+    /* Right side form */
+    .form-section {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-section h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: #4361ee;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+      background: #3651c5;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .links a {
+      color: #4361ee;
+      text-decoration: none;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .divider:not(:empty)::before {
+      margin-right: .75em;
+    }
+
+    .divider:not(:empty)::after {
+      margin-left: .75em;
+    }
+
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .google-btn img {
+      height: 18px;
+      margin-right: 10px;
+    }
+
+    .google-btn:hover {
+      background: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Left image -->
+    <div class="image-section"></div>
+
+    <!-- Right form -->
+    <div class="form-section">
+      <h2>Login</h2>
+
+      <form onsubmit="loginUser(event)">
+        <div class="input-group">
+          <input type="text" id="username" placeholder="Your Name" required>
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="Phone number / email address" required>
+        </div>
+        <div class="input-group">
+          <input type="password" placeholder="Password" required>
+        </div>
+
+        <button type="submit" class="btn-primary">Log in</button>
+
+        <div class="links">
+          <a href="forgot.html">Forgot password?</a>
+          <a href="signup.html">Signup?</a>
+        </div>
+
+        <div class="divider">OR</div>
+
+        <button type="button" class="google-btn">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+          Continue with Google
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function loginUser(event) {
+      event.preventDefault();
+      const name = document.getElementById("username").value;
+      localStorage.setItem("username", name);
+      window.location.href = "home.html";
+    }
+  </script>
+
+</body>
+</html>

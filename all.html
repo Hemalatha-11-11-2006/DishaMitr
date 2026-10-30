@@ -89,7 +89,7 @@
         <p class="desc">Study of diagnosis, treatment and prevention of disease. Careers: doctor, surgeon, pharmacist, researcher, public health specialist.</p>
         <div class="actions">
           <button class="btn" data-action="info">More info</button>
-          <button class="btn primary" data-action="select">Choose Medicine</button>
+          <button class="btn primary" data-action="select" onclick="goToroadmap()">Choose Medicine</button>
         </div>
         <div class="details" aria-hidden="true">
           <strong>Subjects:</strong>
@@ -111,7 +111,7 @@
         <p class="desc">Designing and building solutions — from bridges to software. Careers: civil, mechanical, electrical, computer engineer, product designer.</p>
         <div class="actions">
           <button class="btn" data-action="info">More info</button>
-          <button class="btn primary" data-action="select">Choose Engineering</button>
+          <button class="btn primary" data-action="select" onclick="goToroadmap1()">Choose Engineering</button>
         </div>
         <div class="details" aria-hidden="true">
           <strong>Subjects:</strong>
@@ -133,7 +133,7 @@
         <p class="desc">Focus on trade, finance, and management. Careers: accountant, economist, banker, entrepreneur, marketer.</p>
         <div class="actions">
           <button class="btn" data-action="info">More info</button>
-          <button class="btn primary" data-action="select">Choose Commerce</button>
+          <button class="btn primary" data-action="select" onclick="goToroadmap2()">Choose Commerce</button>
         </div>
         <div class="details" aria-hidden="true">
           <strong>Subjects:</strong>
@@ -186,6 +186,28 @@
         });
       });
     })();
+
+    function goToroadmap() {
+
+   window.location.href = "Medicine.html"; 
+
+ 
+
+}
+function goToroadmap1() {
+
+   window.location.href = "Engineering.html"; 
+
+ 
+
+}
+function goToroadmap2() {
+
+   window.location.href = "Commerce.html"; 
+
+ 
+
+}
   </script>
 </body>
 </html>

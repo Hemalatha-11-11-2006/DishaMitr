@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile - 10th, 11th & 12th</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .logo i {
+      margin-right: 10px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    @media (max-width: 900px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-section {
+      padding: 30px;
+      background: #f8f9fa;
+    }
+
+    .preview-section {
+      padding: 30px;
+      background: white;
+      border-left: 1px solid #eaeaea;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #3498db;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #2c3e50;
+    }
+
+    .required {
+      color: #e74c3c;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #2c3e50;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #3498db;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .profile-preview {
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #3498db;
+      object-fit: cover;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 60px;
+      overflow: hidden;
+    }
+
+    .profile-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .upload-label {
+      display: inline-block;
+      background: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .upload-label:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    #imageUpload {
+      display: none;
+    }
+
+    .preview-details {
+      text-align: left;
+      margin-top: 25px;
+    }
+
+    .detail-group {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .detail-title {
+      font-weight: 600;
+      color: #7f8c8d;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .detail-content {
+      font-size: 17px;
+      color: #2c3e50;
+      word-break: break-word;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 14px 30px;
+      border-radius: 50px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+    }
+
+    .btn i {
+      margin-right: 8px;
+    }
+
+    .btn-save {
+      background: #2ecc71;
+      color: white;
+    }
+
+    .btn-save:hover {
+      background: #27ae60;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-reset {
+      background: #e67e22;
+      color: white;
+    }
+
+    .btn-reset:hover {
+      background: #d35400;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #7f8c8d;
+      font-size: 14px;
+      background: #f8f9fa;
+      border-top: 1px solid #eaeaea;
+    }
+
+    .education-type {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .edu-btn {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      background: #e8f4fc;
+      border: 2px solid #3498db;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #2c3e50;
+      transition: all 0.3s ease;
+    }
+
+    .edu-btn.active {
+      background: #3498db;
+      color: white;
+    }
+
+    .field-10th, .field-11th, .field-12th {
+      display: none;
+    }
+
+    .field-10th.active, .field-11th.active, .field-12th.active {
+      display: block;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    /* Certificate Upload Styles */
+    .certificate-upload {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid #eaeaea;
+    }
+
+    .certificate-group {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .certificate-preview {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .certificate-item {
+      position: relative;
+      width: 100px;
+      height: 140px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .certificate-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .certificate-item .file-name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 3px;
+      font-size: 10px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .certificate-item .remove-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 0 0 0 5px;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .certificate-status {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+
+    .uploaded {
+      color: #2ecc71;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">
+      <i class="fas fa-user-graduate"></i>
+      <span>Student Profile</span>
+    </div>
+    <p class="subtitle">For 10th, 11th & 12th Grade Students</p>
+  </header>
+
+  <div class="main-content">
+    <div class="form-section">
+      <h2>Enter Your Details</h2>
+
+      <div class="education-type">
+        <div class="edu-btn active" data-edu="10th">10th Grade</div>
+        <div class="edu-btn" data-edu="11th">11th Grade</div>
+        <div class="edu-btn" data-edu="12th">12th Grade</div>
+      </div>
+
+      <div class="form-group">
+        <label for="fullName">Full Name <span class="required">*</span></label>
+        <input type="text" id="fullName" placeholder="Enter your full name">
+        <div class="error" id="nameError">Please enter your full name</div>
+      </div>
+
+      <div class="form-group">
+        <label for="studentId">Student ID <span class="required">*</span></label>
+        <input type="text" id="studentId" placeholder="Enter your student ID">
+        <div class="error" id="idError">Please enter your student ID</div>
+      </div>
+
+      <!-- 10th -->
+      <div class="form-group field-10th active">
+        <label for="school10">School Name <span class="required">*</span></label>
+        <input type="text" id="school10" placeholder="Enter your school name">
+        <div class="error" id="school10Error">Please enter your school name</div>
+      </div>
+
+      <!-- 11th -->
+      <div class="form-group field-11th">
+        <label for="school11">School/College Name <span class="required">*</span></label>
+        <input type="text" id="school11" placeholder="Enter your school/college name">
+        <div class="error" id="school11Error">Please enter your school/college name</div>
+      </div>
+
+      <!-- 12th -->
+      <div class="form-group field-12th">
+        <label for="school12">College Name <span class="required">*</span></label>
+        <input type="text" id="school12" placeholder="Enter your college name">
+        <div class="error" id="school12Error">Please enter your college name</div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="board">Board <span class="required">*</span></label>
+          <select id="board">
+            <option value="">Select your board</option>
+            <option value="CBSE">CBSE</option>
+            <option value="ICSE">ICSE</option>
+            <option value="State Board">State Board</option>
+            <option value="Other">Other</option>
+          </select>
+          <div class="error" id="boardError">Please select your board</div>
+        </div>
+
+        <div class="form-group">
+          <label for="year">Year <span class="required">*</span></label>
+          <select id="year">
+            <option value="">Select year</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+          </select>
+          <div class="error" id="yearError">Please select your year</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="Enter your email">
+          <div class="error" id="emailError">Please enter a valid email</div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number <span class="required">*</span></label>
+          <input type="tel" id="phone" placeholder="Enter your phone number">
+          <div class="error" id="phoneError">Please enter a valid phone number</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="subjects">Favorite Subjects <span class="required">*</span></label>
+        <input type="text" id="subjects" placeholder="e.g., Math, Science, English">
+        <div class="error" id="subjectsError">Please enter your favorite subjects</div>
+      </div>
+
+      <div class="form-group">
+        <label for="hobbies">Hobbies & Interests</label>
+        <textarea id="hobbies" rows="2" placeholder="e.g., Drawing, Sports, Music"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="goals">Future Goals</label>
+        <textarea id="goals" rows="2" placeholder="What do you want to become in future?"></textarea>
+      </div>
+
+      <!-- Certificate Upload Section -->
+      <div class="certificate-upload">
+        <h3>Document Upload</h3>
+        
+        <div class="certificate-group">
+          <label for="communityCertificate">Community Certificate</label>
+          <input type="file" id="communityCertificate" accept=".pdf,.jpg,.jpeg,.png" multiple>
+          <div class="certificate-preview" id="communityPreview"></div>
+          <div class="certificate-status" id="communityStatus">No files uploaded</div>
+        </div>
+
+        <div class="certificate-group">
+          <label for="incomeCertificate">Income Certificate</label>
+          <input type="file" id="incomeCertificate" accept=".pdf,.jpg,.jpeg,.png" multiple>
+          <div class="certificate-preview" id="incomePreview"></div>
+          <div class="certificate-status" id="incomeStatus">No files uploaded</div>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-save" id="saveBtn">
+          <i class="fas fa-check"></i> Save Profile
+        </button>
+        <button class="btn btn-reset" id="resetBtn">
+          <i class="fas fa-redo"></i> Reset Form
+        </button>
+      </div>
+    </div>
+
+    <div class="preview-section">
+      <h2>Profile Preview</h2>
+
+      <div class="profile-preview">
+        <div class="profile-img" id="profileImage">
+          <i class="fas fa-user"></i>
+        </div>
+        <label for="imageUpload" class="upload-label">
+          <i class="fas fa-camera"></i> Upload Photo
+        </label>
+        <input type="file" id="imageUpload" accept="image/*">
+
+        <div class="preview-details">
+          <div class="detail-group">
+            <div class="detail-title">Full Name</div>
+            <div class="detail-content" id="previewName">Your Name</div>
+          </div>
+
+          <div class="detail-group">
+            <div class="detail-title">Student ID</div>
+            <div class="detail-content" id="previewId">Your Student ID</div>
+          </div>
+
+          <div class="detail-group">
+            <div class="detail-title">Education</div>
+            <div class="detail-content" id="previewEdu">10th Grade</div>
+          </div>
+
+          <div class="detail-group">
+            <div class="detail-title">School/College</div>
+            <div class="detail-content" id="previewSchool">Your School/College</div>
+          </div>
+
+          <div class="detail-group">
+            <div class="detail-title">Board & Year</div>
+            <div class="detail-content" id="previewBoard">Your Board (Year)</div>
+          </div>
+
+          <div class="detail-group">
+            <div class="detail-title">Contact Information</div>
+            <div class="detail-content" id="previewContact">your.email@example.com | Your Phone Number</div>
+          </div>
+
+          <div class="detail-group">
+            <div class="detail-title">Favorite Subjects</div>
+            <div class="detail-content" id="previewSubjects">Your favorite subjects</div>
+          </div>
+
+          <div class="detail-group">
+            <div class="detail-title">Hobbies & Interests</div>
+            <div class="detail-content" id="previewHobbies">Your hobbies will appear here</div>
+          </div>
+
+          <div class="detail-group">
+            <div class="detail-title">Future Goals</div>
+            <div class="detail-content" id="previewGoals">Your future goals will appear here</div>
+          </div>
+
+          <!-- Certificate Preview -->
+          <div class="detail-group">
+            <div class="detail-title">Uploaded Documents</div>
+            <div class="detail-content">
+              <div id="previewCommunityCerts">No community certificate uploaded</div>
+              <div id="previewIncomeCerts">No income certificate uploaded</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Student Profile Management System © 2025 | Designed for 10th, 11th & 12th Grade Students</p>
+  </footer>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Inputs
+    const fullNameInput = document.getElementById('fullName');
+    const studentIdInput = document.getElementById('studentId');
+    const school10Input = document.getElementById('school10');
+    const school11Input = document.getElementById('school11');
+    const school12Input = document.getElementById('school12');
+    const boardInput = document.getElementById('board');
+    const yearInput = document.getElementById('year');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const subjectsInput = document.getElementById('subjects');
+    const hobbiesInput = document.getElementById('hobbies');
+    const goalsInput = document.getElementById('goals');
+    const imageUpload = document.getElementById('imageUpload');
+    
+    // Certificate inputs
+    const communityCertInput = document.getElementById('communityCertificate');
+    const incomeCertInput = document.getElementById('incomeCertificate');
+    const communityPreview = document.getElementById('communityPreview');
+    const incomePreview = document.getElementById('incomePreview');
+    const communityStatus = document.getElementById('communityStatus');
+    const incomeStatus = document.getElementById('incomeStatus');
+
+    // Preview
+    const previewName = document.getElementById('previewName');
+    const previewId = document.getElementById('previewId');
+    const previewEdu = document.getElementById('previewEdu');
+    const previewSchool = document.getElementById('previewSchool');
+    const previewBoard = document.getElementById('previewBoard');
+    const previewContact = document.getElementById('previewContact');
+    const previewSubjects = document.getElementById('previewSubjects');
+    const previewHobbies = document.getElementById('previewHobbies');
+    const previewGoals = document.getElementById('previewGoals');
+    const previewCommunityCerts = document.getElementById('previewCommunityCerts');
+    const previewIncomeCerts = document.getElementById('previewIncomeCerts');
+    const profileImage = document.getElementById('profileImage');
+
+    // Buttons
+    const saveBtn = document.getElementById('saveBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const eduBtns = document.querySelectorAll('.edu-btn');
+
+    // Certificate data
+    let communityCertificates = [];
+    let incomeCertificates = [];
+
+    // Current grade
+    let currentEdu = '10th';
+
+    // Switch grade
+    eduBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        eduBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentEdu = this.dataset.edu;
+
+        document.querySelectorAll('.form-group').forEach(group => {
+          if (group.classList.contains('field-10th') ||
+              group.classList.contains('field-11th') ||
+              group.classList.contains('field-12th')) {
+            group.classList.remove('active');
+          }
+        });
+
+        document.querySelector(`.field-${currentEdu}`).classList.add('active');
+        previewEdu.textContent = `${currentEdu} Grade`;
+
+        updatePreview();
+      });
+    });
+
+    // Update preview
+    function updatePreview() {
+      previewName.textContent = fullNameInput.value || "Your Name";
+      previewId.textContent = studentIdInput.value || "Your Student ID";
+
+      let schoolValue = "";
+      if (currentEdu === '10th') {
+        schoolValue = school10Input.value || "Your School";
+      } else if (currentEdu === '11th') {
+        schoolValue = school11Input.value || "Your School/College";
+      } else {
+        schoolValue = school12Input.value || "Your College";
+      }
+      previewSchool.textContent = schoolValue;
+
+      const boardValue = boardInput.value || "Your Board";
+      const yearValue = yearInput.value || "Year";
+      previewBoard.textContent = `${boardValue} (${yearValue})`;
+
+      const emailValue = emailInput.value || "your.email@example.com";
+      const phoneValue = phoneInput.value || "Your Phone Number";
+      previewContact.textContent = `${emailValue} | ${phoneValue}`;
+
+      previewSubjects.textContent = subjectsInput.value || "Your favorite subjects";
+      previewHobbies.textContent = hobbiesInput.value || "Your hobbies will appear here";
+      previewGoals.textContent = goalsInput.value || "Your future goals will appear here";
+      
+      // Update certificate preview
+      updateCertificatePreview();
+    }
+
+    // Update certificate preview
+    function updateCertificatePreview() {
+      if (communityCertificates.length > 0) {
+        previewCommunityCerts.textContent = `${communityCertificates.length} community certificate(s) uploaded`;
+      } else {
+        previewCommunityCerts.textContent = "No community certificate uploaded";
+      }
+      
+      if (incomeCertificates.length > 0) {
+        previewIncomeCerts.textContent = `${incomeCertificates.length} income certificate(s) uploaded`;
+      } else {
+        previewIncomeCerts.textContent = "No income certificate uploaded";
+      }
+    }
+
+    [fullNameInput, studentIdInput, school10Input, school11Input, school12Input,
+      boardInput, yearInput, emailInput, phoneInput,
+      subjectsInput, hobbiesInput, goalsInput].forEach(input => {
+      input.addEventListener('input', updatePreview);
+    });
+
+    // Upload photo
+    imageUpload.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profileImage.innerHTML = `<img src="${e.target.result}" alt="Profile Photo">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Handle certificate uploads
+    communityCertInput.addEventListener('change', function() {
+      handleCertificateUpload(this.files, 'community');
+    });
+
+    incomeCertInput.addEventListener('change', function() {
+      handleCertificateUpload(this.files, 'income');
+    });
+
+    function handleCertificateUpload(files, type) {
+      if (!files || files.length === 0) return;
+      
+      const previewElement = type === 'community' ? communityPreview : incomePreview;
+      const statusElement = type === 'community' ? communityStatus : incomeStatus;
+      const certificateArray = type === 'community' ? communityCertificates : incomeCertificates;
+      
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+          // Store file data
+          certificateArray.push({
+            name: file.name,
+            type: file.type,
+            data: e.target.result
+          });
+          
+          // Create preview
+          const previewItem = document.createElement('div');
+          previewItem.className = 'certificate-item';
+          
+          if (file.type.startsWith('image/')) {
+            previewItem.innerHTML = `
+              <img src="${e.target.result}" alt="${file.name}">
+              <div class="file-name">${file.name}</div>
+              <button class="remove-btn" data-type="${type}" data-index="${certificateArray.length - 1}">×</button>
+            `;
+          } else {
+            previewItem.innerHTML = `
+              <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+                <i class="fas fa-file-pdf" style="font-size: 40px; color: #e74c3c;"></i>
+              </div>
+              <div class="file-name">${file.name}</div>
+              <button class="remove-btn" data-type="${type}" data-index="${certificateArray.length - 1}">×</button>
+            `;
+          }
+          
+          previewElement.appendChild(previewItem);
+          
+          // Update status
+          statusElement.textContent = `${certificateArray.length} file(s) uploaded`;
+          statusElement.classList.add('uploaded');
+        };
+        
+        reader.readAsDataURL(file);
+      }
+      
+      // Update certificate preview in the details section
+      updateCertificatePreview();
+    }
+
+    // Remove certificate
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('remove-btn')) {
+        const type = e.target.dataset.type;
+        const index = parseInt(e.target.dataset.index);
+        const certificateArray = type === 'community' ? communityCertificates : incomeCertificates;
+        const previewElement = type === 'community' ? communityPreview : incomePreview;
+        const statusElement = type === 'community' ? communityStatus : incomeStatus;
+        
+        // Remove from array
+        certificateArray.splice(index, 1);
+        
+        // Regenerate preview
+        previewElement.innerHTML = '';
+        certificateArray.forEach((cert, idx) => {
+          const previewItem = document.createElement('div');
+          previewItem.className = 'certificate-item';
+          
+          if (cert.type.startsWith('image/')) {
+            previewItem.innerHTML = `
+              <img src="${cert.data}" alt="${cert.name}">
+              <div class="file-name">${cert.name}</div>
+              <button class="remove-btn" data-type="${type}" data-index="${idx}">×</button>
+            `;
+          } else {
+            previewItem.innerHTML = `
+              <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+                <i class="fas fa-file-pdf" style="font-size: 40px; color: #e74c3c;"></i>
+              </div>
+              <div class="file-name">${cert.name}</div>
+              <button class="remove-btn" data-type="${type}" data-index="${idx}">×</button>
+            `;
+          }
+          
+          previewElement.appendChild(previewItem);
+        });
+        
+        // Update status
+        if (certificateArray.length > 0) {
+          statusElement.textContent = `${certificateArray.length} file(s) uploaded`;
+          statusElement.classList.add('uploaded');
+        } else {
+          statusElement.textContent = 'No files uploaded';
+          statusElement.classList.remove('uploaded');
+        }
+        
+        // Update certificate preview in the details section
+        updateCertificatePreview();
+      }
+    });
+
+    // Save to localStorage
+    saveBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const profileData = {
+        fullName: fullNameInput.value,
+        studentId: studentIdInput.value,
+        grade: currentEdu,
+        school10: school10Input.value,
+        school11: school11Input.value,
+        school12: school12Input.value,
+        board: boardInput.value,
+        year: yearInput.value,
+        email: emailInput.value,
+        phone: phoneInput.value,
+        subjects: subjectsInput.value,
+        hobbies: hobbiesInput.value,
+        goals: goalsInput.value,
+        profileImage: profileImage.querySelector('img') ? profileImage.querySelector('img').src : null,
+        communityCertificates: communityCertificates,
+        incomeCertificates: incomeCertificates
+      };
+      localStorage.setItem('studentProfile', JSON.stringify(profileData));
+      alert('Profile saved successfully!');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (confirm('Are you sure you want to reset the form?')) {
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+          if (element.id !== 'communityCertificate' && element.id !== 'incomeCertificate') {
+            element.value = '';
+          }
+        });
+        
+        // Reset certificate arrays and previews
+        communityCertificates = [];
+        incomeCertificates = [];
+        communityPreview.innerHTML = '';
+        incomePreview.innerHTML = '';
+        communityStatus.textContent = 'No files uploaded';
+        communityStatus.classList.remove('uploaded');
+        incomeStatus.textContent = 'No files uploaded';
+        incomeStatus.classList.remove('uploaded');
+        
+        // Reset profile image
+        profileImage.innerHTML = '<i class="fas fa-user"></i>';
+        
+        // Reset preview
+        updatePreview();
+        
+        // Clear localStorage
+        localStorage.removeItem('studentProfile');
+      }
+    });
+
+    // Load saved data
+    const savedProfile = localStorage.getItem('studentProfile');
+    if (savedProfile) {
+      const data = JSON.parse(savedProfile);
+      fullNameInput.value = data.fullName || '';
+      studentIdInput.value = data.studentId || '';
+      school10Input.value = data.school10 || '';
+      school11Input.value = data.school11 || '';
+      school12Input.value = data.school12 || '';
+      boardInput.value = data.board || '';
+      yearInput.value = data.year || '';
+      emailInput.value = data.email || '';
+      phoneInput.value = data.phone || '';
+      subjectsInput.value = data.subjects || '';
+      hobbiesInput.value = data.hobbies || '';
+      goalsInput.value = data.goals || '';
+      
+      // Load certificates if they exist
+      if (data.communityCertificates) {
+        communityCertificates = data.communityCertificates;
+        communityCertificates.forEach((cert, idx) => {
+          const previewItem = document.createElement('div');
+          previewItem.className = 'certificate-item';
+          
+          if (cert.type.startsWith('image/')) {
+            previewItem.innerHTML = `
+              <img src="${cert.data}" alt="${cert.name}">
+              <div class="file-name">${cert.name}</div>
+              <button class="remove-btn" data-type="community" data-index="${idx}">×</button>
+            `;
+          } else {
+            previewItem.innerHTML = `
+              <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+                <i class="fas fa-file-pdf" style="font-size: 40px; color: #e74c3c;"></i>
+              </div>
+              <div class="file-name">${cert.name}</div>
+              <button class="remove-btn" data-type="community" data-index="${idx}">×</button>
+            `;
+          }
+          
+          communityPreview.appendChild(previewItem);
+        });
+        
+        if (communityCertificates.length > 0) {
+          communityStatus.textContent = `${communityCertificates.length} file(s) uploaded`;
+          communityStatus.classList.add('uploaded');
+        }
+      }
+      
+      if (data.incomeCertificates) {
+        incomeCertificates = data.incomeCertificates;
+        incomeCertificates.forEach((cert, idx) => {
+          const previewItem = document.createElement('div');
+          previewItem.className = 'certificate-item';
+          
+          if (cert.type.startsWith('image/')) {
+            previewItem.innerHTML = `
+              <img src="${cert.data}" alt="${cert.name}">
+              <div class="file-name">${cert.name}</div>
+              <button class="remove-btn" data-type="income" data-index="${idx}">×</button>
+            `;
+          } else {
+            previewItem.innerHTML = `
+              <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+                <i class="fas fa-file-pdf" style="font-size: 40px; color: #e74c3c;"></i>
+              </div>
+              <div class="file-name">${cert.name}</div>
+              <button class="remove-btn" data-type="income" data-index="${idx}">×</button>
+            `;
+          }
+          
+          incomePreview.appendChild(previewItem);
+        });
+        
+        if (incomeCertificates.length > 0) {
+          incomeStatus.textContent = `${incomeCertificates.length} file(s) uploaded`;
+          incomeStatus.classList.add('uploaded');
+        }
+      }
+      
+      if (data.profileImage) {
+        profileImage.innerHTML = `<img src="${data.profileImage}" alt="Profile Photo">`;
+      }
+      
+      currentEdu = data.grade || '10th';
+      document.querySelector(`[data-edu="${currentEdu}"]`).classList.add('active');
+      document.querySelector(`.field-${currentEdu}`).classList.add('active');
+      previewEdu.textContent = `${currentEdu} Grade`;
+      updatePreview();
+    }
+  });
+</script>
+</body>
+</html>

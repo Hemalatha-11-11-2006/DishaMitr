@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10th Grade Career Assessment Test</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background: linear-gradient(135deg, #87CEEB 0%, #B0E2FF 100%);
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    
+    .quiz-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      width: 90%;
+      max-width: 700px;
+      padding: 25px;
+      position: relative;
+    }
+    
+    h2 { 
+      text-align: center; 
+      color: #1E90FF; 
+      margin-bottom: 25px;
+      font-size: 28px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background: #E6F2FF;
+      border-radius: 4px;
+      margin-bottom: 25px;
+      overflow: hidden;
+    }
+    
+    .progress {
+      height: 100%;
+      background: #1E90FF;
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    
+    .question-counter {
+      text-align: center;
+      color: #4682B4;
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .question-box {
+      background: #F0F8FF;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+      min-height: 200px;
+      border: 1px solid #B0E2FF;
+    }
+    
+    .question-text {
+      font-size: 18px;
+      color: #2F4F4F;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .options-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    
+    label {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid #B0E2FF;
+    }
+    
+    label:hover {
+      background: #E6F2FF;
+      border-color: #87CEEB;
+      transform: translateY(-2px);
+    }
+    
+    label.selected {
+      background: #D1E8FF;
+      border-color: #1E90FF;
+      font-weight: bold;
+    }
+    
+    input[type="radio"] {
+      margin-right: 12px;
+      accent-color: #1E90FF;
+    }
+    
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .prev-btn {
+      background: #87CEEB;
+      color: white;
+    }
+    
+    .prev-btn:hover {
+      background: #5F9EA0;
+      transform: translateY(-2px);
+    }
+    
+    .next-btn {
+      background: #1E90FF;
+      color: white;
+    }
+    
+    .next-btn:hover {
+      background: #0066CC;
+      transform: translateY(-2px);
+    }
+    
+    .submit-btn {
+      background: #4682B4;
+      color: white;
+      margin: 20px auto;
+      display: block;
+      padding: 14px 30px;
+    }
+    
+    .submit-btn:hover {
+      background: #36648B;
+      transform: scale(1.05);
+    }
+    
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .icon {
+      margin-right: 8px;
+      font-size: 18px;
+    }
+    
+    /* Animation for question transitions */
+    .question-box {
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive design */
+    @media (max-width: 600px) {
+      .quiz-container {
+        width: 95%;
+        padding: 15px;
+      }
+      
+      .question-box {
+        padding: 15px;
+        min-height: 180px;
+      }
+      
+      button {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2>10th Grade Career Assessment</h2>
+    
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    
+    <div class="question-counter" id="question-counter">Question 1 of 15</div>
+    
+    <div class="question-box">
+      <div class="question-text" id="question-text"></div>
+      <div class="options-container" id="options-container"></div>
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" id="prev-btn" disabled>
+        <span class="icon">←</span> Previous
+      </button>
+      <button class="next-btn" id="next-btn">
+        Next <span class="icon">→</span>
+      </button>
+    </div>
+    
+    <button class="submit-btn" id="submit-btn" style="display:none;">Submit Test</button>
+  </div>
+
+  <script>
+    const questions10 = [
+      { 
+        q: "Which of these activities interests you the most?", 
+        o: ["Conducting science experiments", "Building websites or apps", "Solving complex math problems", "Managing finances or budgets"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1] // Weighted scores for each option
+      },
+      { 
+        q: "What type of books or articles do you enjoy reading?", 
+        o: ["Medical discoveries and health", "Technology and innovation", "Scientific theories and research", "Business and economics"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1]
+      },
+      { 
+        q: "Which school subject do you find most engaging?", 
+        o: ["Biology", "Computer Science", "Mathematics", "Accountancy"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1]
+      },
+      { 
+        q: "What career path appeals to you most?", 
+        o: ["Doctor or Medical Researcher", "Software Developer", "Scientist or Engineer", "Chartered Accountant or Business Manager"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1]
+      },
+      { 
+        q: "Which extracurricular activity interests you?", 
+        o: ["Science club", "Coding competition", "Math Olympiad", "Business club"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [2, 2, 2, 2]
+      },
+      { 
+        q: "How would you describe your problem-solving style?", 
+        o: ["Analytical and diagnostic", "Creative and technical", "Logical and systematic", "Strategic and practical"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [2, 2, 2, 2]
+      },
+      { 
+        q: "Which of these achievements would make you proud?", 
+        o: ["Discovering a new medical treatment", "Developing a popular app", "Proving a mathematical theorem", "Building a successful business"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1]
+      },
+      { 
+        q: "What type of projects do you enjoy working on?", 
+        o: ["Biology research projects", "Computer programming projects", "Data analysis projects", "Market research projects"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [2, 2, 2, 2]
+      },
+      { 
+        q: "Which professional would you most like to shadow for a day?", 
+        o: ["Surgeon", "Software Engineer", "Research Scientist", "Financial Analyst"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1]
+      },
+      { 
+        q: "What kind of problems do you find most interesting?", 
+        o: ["Health and disease-related problems", "Technology and automation challenges", "Theoretical and abstract problems", "Business and economic problems"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1]
+      },
+      { 
+        q: "Which software/tool would you prefer to learn?", 
+        o: ["Medical simulation software", "Programming languages", "Statistical analysis tools", "Financial modeling software"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [2, 3, 2, 1]
+      },
+      { 
+        q: "What type of documentary would you choose to watch?", 
+        o: ["Human body and medicine", "Technology and innovation", "Space and universe", "Business and industry"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1]
+      },
+      { 
+        q: "Which skill would you most like to develop?", 
+        o: ["Diagnostic skills", "Coding skills", "Analytical reasoning", "Financial planning"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1]
+      },
+      { 
+        q: "What kind of internship would you prefer?", 
+        o: ["Hospital or laboratory", "Tech startup", "Research institute", "Bank or corporate office"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1]
+      },
+      { 
+        q: "Which of these future developments excites you most?", 
+        o: ["Genetic engineering advances", "Artificial intelligence", "Space exploration", "Global economic growth"],
+        v: ["bio", "comp", "math", "commerce"],
+        w: [3, 2, 2, 1]
+      }
+    ];
+
+    let currentQuestion = 0;
+    const userAnswers = new Array(questions10.length).fill(null);
+    const userScores = {
+      bio: 0,
+      comp: 0,
+      math: 0,
+      commerce: 0
+    };
+
+    // Initialize the quiz
+    function initQuiz() {
+      showQuestion(currentQuestion);
+      updateProgressBar();
+      updateNavigationButtons();
+    }
+
+    // Display the current question
+    function showQuestion(index) {
+      const question = questions10[index];
+      document.getElementById('question-text').textContent = question.q;
+      document.getElementById('question-counter').textContent = `Question ${index + 1} of ${questions10.length}`;
+      
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+      
+      question.o.forEach((option, i) => {
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'question';
+        input.value = question.v[i];
+        input.dataset.weight = question.w[i];
+        
+        // Check if this option was previously selected
+        if (userAnswers[index] === question.v[i]) {
+          input.checked = true;
+          label.classList.add('selected');
+        }
+        
+        input.addEventListener('change', () => {
+          // Remove selected class from all labels
+          document.querySelectorAll('label').forEach(lbl => {
+            lbl.classList.remove('selected');
+          });
+          
+          // Add selected class to the clicked label
+          label.classList.add('selected');
+          
+          // Store the answer and update scores
+          userAnswers[index] = question.v[i];
+          updateNavigationButtons();
+        });
+        
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(option));
+        optionsContainer.appendChild(label);
+      });
+    }
+
+    // Update progress bar
+    function updateProgressBar() {
+      const progress = ((currentQuestion + 1) / questions10.length) * 100;
+      document.getElementById('progress').style.width = `${progress}%`;
+    }
+
+    // Update navigation buttons state
+    function updateNavigationButtons() {
+      document.getElementById('prev-btn').disabled = currentQuestion === 0;
+      
+      if (currentQuestion === questions10.length - 1) {
+        document.getElementById('next-btn').style.display = 'none';
+        document.getElementById('submit-btn').style.display = 'block';
+      } else {
+        document.getElementById('next-btn').style.display = 'block';
+        document.getElementById('submit-btn').style.display = 'none';
+      }
+      
+      // Enable next button if current question is answered
+      document.getElementById('next-btn').disabled = userAnswers[currentQuestion] === null;
+    }
+
+    // Navigate to next question
+    function nextQuestion() {
+      if (currentQuestion < questions10.length - 1) {
+        currentQuestion++;
+        showQuestion(currentQuestion);
+        updateProgressBar();
+        updateNavigationButtons();
+      }
+    }
+
+    // Navigate to previous question
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion(currentQuestion);
+        updateProgressBar();
+        updateNavigationButtons();
+      }
+    }
+
+    // Calculate scores based on answers
+    function calculateScores() {
+      // Reset scores
+      for (const key in userScores) {
+        userScores[key] = 0;
+      }
+      
+      // Calculate weighted scores
+      userAnswers.forEach((answer, index) => {
+        if (answer) {
+          const question = questions10[index];
+          const optionIndex = question.v.indexOf(answer);
+          const weight = question.w[optionIndex];
+          userScores[answer] += weight;
+        }
+      });
+      
+      return userScores;
+    }
+
+    // Submit the test
+    function submitTest() {
+      // Calculate scores
+      const scores = calculateScores();
+      
+      // Find the best match
+      let bestMatch = "bio";
+      let highestScore = scores.bio;
+      
+      for (const key in scores) {
+        if (scores[key] > highestScore) {
+          highestScore = scores[key];
+          bestMatch = key;
+        }
+      }
+      
+      // Define course options with detailed descriptions
+      const courseOptions = { 
+        bio: {
+          name: "Biology/Medical Sciences",
+          description: "You have a strong interest in living organisms, healthcare, and medical research. Consider pursuing courses in Medicine, Biotechnology, Pharmacy, or Life Sciences."
+        }, 
+        comp: {
+          name: "Computer Science/IT",
+          description: "You show aptitude for technology, programming, and digital innovation. Consider pursuing courses in Computer Science, Information Technology, or Software Engineering."
+        }, 
+        math: {
+          name: "Mathematics/Pure Sciences",
+          description: "You excel in logical reasoning, analytical thinking, and scientific inquiry. Consider pursuing courses in Mathematics, Physics, Chemistry, or Engineering."
+        }, 
+        commerce: {
+          name: "Commerce/Business",
+          description: "You have an interest in business, finance, and economics. Consider pursuing courses in Commerce, Business Administration, Economics, or Chartered Accountancy."
+        } 
+      };
+      
+      // Store results
+      localStorage.setItem("studentCourse", courseOptions[bestMatch].name);
+      localStorage.setItem("courseDescription", courseOptions[bestMatch].description);
+      localStorage.setItem("studentScores", JSON.stringify(scores));
+      localStorage.setItem("studentLevel", "10th");
+      
+      // Redirect to results page
+      window.location.href = "result 10th.html";
+    }
+
+    // Event listeners
+    document.getElementById('next-btn').addEventListener('click', nextQuestion);
+    document.getElementById('prev-btn').addEventListener('click', prevQuestion);
+    document.getElementById('submit-btn').addEventListener('click', submitTest);
+
+    // Initialize the quiz
+    initQuiz();
+  </script>
+</body>
+</html>

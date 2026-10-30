@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduInnovate - Student Idea Network</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #4cc9f0;
+      --warning: #ffba08;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e7ec 100%);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .logo i {
+      font-size: 32px;
+      color: var(--primary);
+    }
+
+    h1 {
+      color: var(--secondary);
+      font-size: 32px;
+      margin: 10px 0;
+    }
+
+    .subtitle {
+      color: #6c757d;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      /* start hidden for the fade-in animation */
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .card-full {
+      grid-column: 1 / -1;
+    }
+
+    h2 {
+      color: var(--secondary);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f1f2f6;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2 i {
+      color: var(--primary);
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .feature {
+      text-align: center;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature i {
+      font-size: 24px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .feature h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .idea-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .idea-card {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .idea-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .idea-card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: var(--secondary);
+    }
+
+    .idea-card p {
+      font-size: 14px;
+      color: #6c757d;
+      margin-bottom: 10px;
+    }
+
+    .idea-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      background: var(--primary);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .tag-success {
+      background: var(--success);
+    }
+
+    .tag-warning {
+      background: var(--warning);
+    }
+
+    .idea-form {
+      display: grid;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .testimonial {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+      border-left: 4px solid var(--primary);
+    }
+
+    .testimonial p {
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .testimonial .author {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #6c757d;
+      padding: 20px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat i {
+      font-size: 24px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .stat h3 {
+      font-size: 24px;
+      margin-bottom: 5px;
+      color: var(--secondary);
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .idea-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* simple fade-in keyframes for JS animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-lightbulb"></i>
+        <h1>EduInnovate <span>Network</span></h1>
+      </div>
+      <p class="subtitle">Share your ideas and solutions with students and professionals worldwide</p>
+    </header>
+
+    <div class="dashboard">
+      <div class="card card-full">
+        <h2><i class="fas fa-network-wired"></i> Student Innovation Network</h2>
+        <p>Connect with other students and professionals to share your ideas, get feedback, and collaborate on projects. Our platform makes it easy to share your innovative solutions with the world.</p>
+
+        <div class="btn-container">
+          <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Submit Idea</a>
+          <a href="#" class="btn btn-secondary"><i class="fas fa-search"></i> Browse Ideas</a>
+          <a href="#" class="btn btn-success"><i class="fas fa-users"></i> Join Community</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <i class="fas fa-lightbulb"></i>
+            <h3>1,258</h3>
+            <p>Ideas Shared</p>
+          </div>
+          <div class="stat">
+            <i class="fas fa-users"></i>
+            <h3>5,372</h3>
+            <p>Active Members</p>
+          </div>
+          <div class="stat">
+            <i class="fas fa-handshake"></i>
+            <h3>327</h3>
+            <p>Collaborations</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><i class="fas fa-rocket"></i> Recent Ideas</h2>
+        <p>Check out the latest innovative ideas shared by students from around the world:</p>
+
+        <div class="idea-cards">
+          <div class="idea-card">
+            <h3>AI-Based Learning Assistant</h3>
+            <p>A personalized learning assistant that adapts to each student's learning style and pace.</p>
+            <div class="tags">
+              <span class="tag">AI</span>
+              <span class="tag">Education</span>
+              <span class="tag tag-success">Completed</span>
+            </div>
+          </div>
+          <div class="idea-card">
+            <h3>Plastic Waste to 3D Printing Material</h3>
+            <p>A low-cost machine that converts plastic waste into filament for 3D printers.</p>
+            <div class="tags">
+              <span class="tag">Sustainability</span>
+              <span class="tag">3D Printing</span>
+              <span class="tag tag-warning">In Progress</span>
+            </div>
+          </div>
+          <div class="idea-card">
+            <h3>VR Science Lab</h3>
+            <p>Virtual reality platform for conducting science experiments safely and affordably.</p>
+            <div class="tags">
+              <span class="tag">VR</span>
+              <span class="tag">Education</span>
+              <span class="tag">Science</span>
+            </div>
+          </div>
+          <div class="idea-card">
+            <h3>Smart Campus Navigation</h3>
+            <p>An app that helps students navigate large campuses with indoor mapping and AR directions.</p>
+            <div class="tags">
+              <span class="tag">AR</span>
+              <span class="tag">Navigation</span>
+              <span class="tag tag-success">Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-container">
+          <a href="#" class="btn btn-primary">View All Ideas</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><i class="fas fa-pencil-alt"></i> Submit Your Idea</h2>
+        <p>Share your innovative idea or solution with our community:</p>
+
+        <!-- changed to a real <form> so the submit event works correctly -->
+        <form class="idea-form">
+          <div class="form-group">
+            <label for="idea-title">Idea Title</label>
+            <input type="text" id="idea-title" placeholder="Enter a clear title for your idea">
+          </div>
+
+          <div class="form-group">
+            <label for="idea-description">Idea Description</label>
+            <textarea id="idea-description" placeholder="Describe your idea in detail, including the problem it solves"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="idea-category">Category</label>
+            <select id="idea-category">
+              <option value="">Select a category</option>
+              <option value="technology">Technology</option>
+              <option value="education">Education</option>
+              <option value="sustainability">Sustainability</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="business">Business</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="idea-tags">Tags (comma separated)</label>
+            <input type="text" id="idea-tags" placeholder="e.g., AI, Education, Sustainability">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit Idea</button>
+        </form>
+      </div>
+
+      <div class="card card-full">
+        <h2><i class="fas fa-cogs"></i> How It Works</h2>
+
+        <div class="features">
+          <div class="feature">
+            <i class="fas fa-1"></i>
+            <h3>Share Your Idea</h3>
+            <p>Submit your innovative idea or solution through our simple form</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-2"></i>
+            <h3>Get Feedback</h3>
+            <p>Receive comments and suggestions from other students and professionals</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-3"></i>
+            <h3>Collaborate</h3>
+            <p>Connect with like-minded individuals to develop your idea further</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-full">
+        <h2><i class="fas fa-comments"></i> Community Feedback</h2>
+
+        <div class="testimonial">
+          <p>"I shared my idea for a sustainable packaging solution and connected with a business student who helped me develop a business plan. We're now working on a prototype together!"</p>
+          <div class="author">- Priya, Engineering Student</div>
+        </div>
+
+        <div class="testimonial">
+          <p>"As a business professional, I'm impressed by the quality of ideas on this platform. I've already reached out to two students about potential internships with my company."</p>
+          <div class="author">- Michael, Startup Founder</div>
+        </div>
+
+        <div class="testimonial">
+          <p>"This network helped me find collaborators for my AI project. We now have a team of four students from different universities working together remotely."</p>
+          <div class="author">- Alex, Computer Science Student</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>EduInnovate Network &copy; 2023. All rights reserved.</p>
+      <p>An open platform for student innovation and collaboration</p>
+    </footer>
+  </div>
+
+  <script>
+    // Simple animation for page elements
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, index) => {
+        // use separate animation + delay to avoid template/syntax issues
+        card.style.animation = 'fadeIn 0.5s ease forwards';
+        card.style.animationDelay = `${index * 0.2}s`;
+      });
+
+      // Add hover effect to buttons (keeps JS behaviour but CSS already handles hover)
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-3px)';
+          this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
+        });
+
+        button.addEventListener('mouseleave', function() {
+          this.style.transform = '';
+          this.style.boxShadow = '';
+        });
+      });
+
+      // Form submission handling
+      const form = document.querySelector('.idea-form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          alert('Thank you for submitting your idea! It will be reviewed and posted soon.');
+          form.reset();
+        });
+      }
+    });
+  </script>
+</body>
+</html>

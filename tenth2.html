@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Combination Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #9c67f7;
+            color: #4a4453;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: #7d60b6;
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(112, 80, 176, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #8460bb;
+        }
+        
+        .intro {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(112, 80, 176, 0.1);
+            border-left: 4px solid #482f79;
+        }
+        
+        .intro h2 {
+            color: #7e5cc2;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .intro p {
+            margin-bottom: 15px;
+            color: #985dec;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(112, 80, 176, 0.1);
+            border-top: 5px solid;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(112, 80, 176, 0.15);
+        }
+        
+        .bio-math {
+            border-top-color: #8962df;
+        }
+        
+        .computer-math {
+            border-top-color: #7b68ee;
+        }
+        
+        .pure-science {
+            border-top-color: #9370db;
+        }
+        
+        .commerce {
+            border-top-color: #9f7ddf;
+        }
+        
+        .card-header {
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        
+        .bio-math .card-header {
+            background-color: #8a79af;
+        }
+        
+        .computer-math .card-header {
+            background-color: #7b68ee;
+        }
+        
+        .pure-science .card-header {
+            background-color: #9370db;
+        }
+        
+        .commerce .card-header {
+            background-color: #9f7ddf;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .card-body h3 {
+            margin: 15px 0 10px;
+            color: #5d4b81;
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+        
+        .subject-list {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .subject-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1edf9;
+            display: flex;
+            align-items: center;
+            color: #5a4e6b;
+        }
+        
+        .subject-list li i {
+            margin-right: 10px;
+            color: #8a79af;
+        }
+        
+        .career-path {
+            background-color: #f5f1ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 3px solid #9370db;
+        }
+        
+        .career-path h3 {
+            color: #5d4b81;
+            margin-bottom: 8px;
+        }
+        
+        .career-path p {
+            color: #5a4e6b;
+            font-size: 0.95rem;
+        }
+        
+        .scenario {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(112, 80, 176, 0.1);
+            border-left: 4px solid #9370db;
+        }
+        
+        .scenario h2 {
+            color: #5d4b81;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .scenario-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .scenario-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .scenario-text p {
+            margin-bottom: 15px;
+            color: #9270c3;
+        }
+        
+        .scenario-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f1ff 0%, #e6dcfa 100%);
+            padding: 30px 20px;
+            border-radius: 8px;
+        }
+        
+        .scenario-image i {
+            font-size: 5rem;
+            color: #7d4ce0;
+            margin-bottom: 15px;
+        }
+        
+        .scenario-image h3 {
+            color: #906ed5;
+            font-weight: 500;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background-color: #9370db;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #f5f1ff;
+            color: #5d4b81;
+            border: 1px solid #d4c5ed;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(112, 80, 176, 0.2);
+        }
+        
+        footer {
+            text-align: center;
+            color: #7b6a95;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .scenario-content {
+                flex-direction: column;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Subject Combination Guide</h1>
+            <p>Confused about which subjects to choose? This guide will help you understand different streams and make an informed decision about your future.</p>
+        </header>
+        
+        <section class="intro">
+            <h2>Making the Right Choice</h2>
+            <p>Choosing your subject combination is one of the most important decisions you'll make as a student. It can shape your future career path and higher education opportunities.</p>
+            <p>This guide explains the four main subject combinations available to most students: Bio Math, Computer Math, Pure Science, and Commerce. Each combination has its own unique subjects, career paths, and advantages.</p>
+        </section>
+        
+        <div class="cards-container">
+            <!-- Bio Math Card -->
+            <div class="card bio-math">
+                <div class="card-header">
+                    <h2><i class="fas fa-dna"></i> Bio Math</h2>
+                </div>
+                <div class="card-body">
+                    <p>This combination combines biology with mathematics, perfect for students interested in medical and engineering fields.</p>
+                    <h3>Core Subjects</h3>
+                    <ul class="subject-list">
+                        <li><i class="fas fa-check"></i> Biology</li>
+                        <li><i class="fas fa-check"></i> Mathematics</li>
+                        <li><i class="fas fa-check"></i> Physics</li>
+                        <li><i class="fas fa-check"></i> Chemistry</li>
+                    </ul>
+                    <div class="career-path">
+                        <h3>Career Paths</h3>
+                        <p>Medical Doctor, Biomedical Engineer, Pharmacist, Biotechnology, Genetics Research</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Computer Math Card -->
+            <div class="card computer-math">
+                <div class="card-header">
+                    <h2><i class="fas fa-laptop-code"></i> Computer Math</h2>
+                </div>
+                <div class="card-body">
+                    <p>Focuses on computer science with strong mathematical foundation, ideal for tech enthusiasts.</p>
+                    <h3>Core Subjects</h3>
+                    <ul class="subject-list">
+                        <li><i class="fas fa-check"></i> Computer Science</li>
+                        <li><i class="fas fa-check"></i> Mathematics</li>
+                        <li><i class="fas fa-check"></i> Physics</li>
+                        <li><i class="fas fa-check"></i> Information Technology</li>
+                    </ul>
+                    <div class="career-path">
+                        <h3>Career Paths</h3>
+                        <p>Software Developer, Data Scientist, AI Engineer, Cybersecurity Analyst, Game Developer</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pure Science Card -->
+            <div class="card pure-science">
+                <div class="card-header">
+                    <h2><i class="fas fa-flask"></i> Pure Science</h2>
+                </div>
+                <div class="card-body">
+                    <p>Focuses on fundamental sciences without mathematics, for students interested in research and science fields.</p>
+                    <h3>Core Subjects</h3>
+                    <ul class="subject-list">
+                        <li><i class="fas fa-check"></i> Physics</li>
+                        <li><i class="fas fa-check"></i> Chemistry</li>
+                        <li><i class="fas fa-check"></i> Biology</li>
+                        <li><i class="fas fa-check"></i> Geology/Environmental Science</li>
+                    </ul>
+                    <div class="career-path">
+                        <h3>Career Paths</h3>
+                        <p>Research Scientist, Chemist, Physicist, Geologist, Science Writer</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Commerce Card -->
+            <div class="card commerce">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-line"></i> Commerce</h2>
+                </div>
+                <div class="card-body">
+                    <p>Focuses on business, economics, and finance, perfect for students interested in the business world.</p>
+                    <h3>Core Subjects</h3>
+                    <ul class="subject-list">
+                        <li><i class="fas fa-check"></i> Accountancy</li>
+                        <li><i class="fas fa-check"></i> Business Studies</li>
+                        <li><i class="fas fa-check"></i> Economics</li>
+                        <li><i class="fas fa-check"></i> Mathematics/Statistics</li>
+                    </ul>
+                    <div class="career-path">
+                        <h3>Career Paths</h3>
+                        <p>Chartered Accountant, Financial Analyst, Business Manager, Economist, Entrepreneur</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <section class="scenario">
+            <h2>Student Scenario: I'm Confused About Subject Groups</h2>
+            <div class="scenario-content">
+                <div class="scenario-text">
+                    <p>Hi, I'm Alex, a student who needs to choose my subject combination for higher studies. I'm confused about what each group offers and how it will affect my future career.</p>
+                    <p>After exploring this page, I now understand that:</p>
+                    <ul class="subject-list">
+                        <li><i class="fas fa-arrow-right"></i> <strong>Bio Math</strong> is for me if I'm interested in medical or biotechnology fields</li>
+                        <li><i class="fas fa-arrow-right"></i> <strong>Computer Math</strong> would be good if I love programming and technology</li>
+                        <li><i class="fas fa-arrow-right"></i> <strong>Pure Science</strong> is ideal if I want to pursue scientific research</li>
+                        <li><i class="fas fa-arrow-right"></i> <strong>Commerce</strong> is the way to go if I'm interested in business and finance</li>
+                    </ul>
+                    <p>This guide has helped me make an informed decision based on my interests and career goals!</p>
+                </div>
+                <div class="scenario-image">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Student Guidance Portal</h3>
+                    <p>Making subject selection easier</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="buttons">
+            <button class="btn btn-primary"><i class="fas fa-download"></i> Download Brochure</button>
+            <button class="btn btn-secondary"><i class="fas fa-question-circle"></i> Request More Information</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 Subject Combination Guide | Designed for Students</p>
+    </footer>
+</body>
+</html>

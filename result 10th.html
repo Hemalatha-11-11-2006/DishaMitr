@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Result - Celebration</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #87CEEB 0%, #B0E2FF 100%);
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .result-container {
+      margin-top: 40px;
+      margin-bottom: 30px;
+      width: 100%;
+      max-width: 700px;
+    }
+    
+    #result {
+      font-size: 24px;
+      font-weight: bold;
+      color: #4682B4;
+      display: inline-block;
+      padding: 20px 30px;
+      background: #F0F8FF;
+      border-radius: 12px;
+      border: 3px solid #B0E2FF;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .content {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      max-width: 600px;
+      position: relative;
+      z-index: 2;
+      margin-top: 20px;
+    }
+    
+    h2 {
+      color: #1E90FF;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+      margin-bottom: 20px;
+      font-size: 32px;
+    }
+    
+    button {
+      margin-top: 30px;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 8px;
+      background: #1E90FF;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    button:hover {
+      background: #0066CC;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    }
+    
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 600px) {
+      .content {
+        padding: 20px;
+      }
+      
+      h2 {
+        font-size: 28px;
+      }
+      
+      #result {
+        font-size: 18px;
+        padding: 15px 20px;
+      }
+      
+      button {
+        padding: 12px 24px;
+        font-size: 15px;
+      }
+      
+      .result-container {
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  
+  <div class="result-container">
+    <div id="result"></div>
+  </div>
+  
+  <div class="content">
+    <h2>🎉 Congratulations! 🎉</h2>
+    <button onclick="retakeTest()">Retake Test</button>
+  </div>
+
+  <script>
+    const course = localStorage.getItem("studentCourse");
+    const level = localStorage.getItem("studentLevel");
+    document.getElementById("result").innerHTML =
+      `🎯 Based on your answers in <b>${level}</b>, your interest is: 
+      <span style="color:#1E90FF">${course}</span>`;
+
+    function retakeTest() {
+      window.location.href = "dashboardtenth.html";
+    }
+
+    // 🎉 Confetti + Emoji Celebration
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const emojis = ["🎉","🎊","🎂","🎁","🎈","🍿","🥳","🏆","💯","👏"];
+    const colors = ["#87CEEB", "#1E90FF", "#00BFFF", "#ADD8E6", "#B0E2FF", "#87CEFA"];
+
+    let particles = [];
+
+    class Particle {
+      constructor(x, y, isEmoji=false) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 14 + 8;
+        this.speedX = (Math.random() - 0.5) * 6;
+        this.speedY = Math.random() * -7 - 3;
+        this.gravity = 0.2;
+        this.rotation = Math.random() * 360;
+        this.isEmoji = isEmoji;
+        this.char = isEmoji ? emojis[Math.floor(Math.random() * emojis.length)] : null;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.speedY += this.gravity;
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.rotation += 5;
+      }
+      draw() {
+  if(this.isEmoji){
+    ctx.font = `${this.size * 2}px serif`;
+    ctx.fillStyle = this.color;
+    ctx.fillText(this.char, this.x, this.y);
+  } else {
+    ctx.fillStyle = this.color;
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation * Math.PI / 180);
+    ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+    ctx.restore();
+  }
+}
+
+    }
+
+    function burst(x, y) {
+      for(let i=0; i<25; i++){
+        particles.push(new Particle(x, y, Math.random() < 0.3)); // 30% emojis
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        p.update();
+        p.draw();
+        if(p.y > canvas.height+50) particles.splice(index, 1);
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // 🎊 Bursts from the two corners of the result box
+    function partyBursts(){
+      const resultBox = document.getElementById("result");
+      const rect = resultBox.getBoundingClientRect();
+
+      // Top left corner of result
+      burst(rect.left + 5, rect.top + 5);
+      
+      // Top right corner of result
+      burst(rect.right - 5, rect.top + 5);
+    }
+
+    // Initial bursts when page loads
+    setTimeout(partyBursts, 300);
+    setTimeout(partyBursts, 800);
+    setTimeout(partyBursts, 1200);
+    
+    // burst every 2s
+    setInterval(partyBursts, 2000);
+  </script>
+</body>
+</html>

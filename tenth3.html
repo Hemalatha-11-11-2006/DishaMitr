@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Builder for Young Learners</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2193b0;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .intro {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .subject-card {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .subject-card h3 {
+            color: #2193b0;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .subject-card h3 i {
+            margin-right: 10px;
+        }
+        
+        .skill-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .skill-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ccc;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .skill-list i {
+            color: #2193b0;
+            margin-right: 10px;
+        }
+        
+        .activity-section {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .activity-card {
+            background-color: #f8f9fa;
+            border-left: 5px solid #2193b0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .activity-card h4 {
+            color: #2193b0;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .subject-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Skill Builder for Young Learners</h1>
+            <p class="subtitle">Fun ways to explore different subjects and develop your skills!</p>
+        </header>
+        
+        <section class="intro">
+            <h2>Welcome to Your Learning Adventure! 🚀</h2>
+            <p>Hello! If you're 10 years old and curious about different subjects, you're in the right place. This page will help you explore four main subject areas and discover fun ways to build your skills in each one.</p>
+            <p>Remember: <span class="highlight">The best way to learn is by having fun</span> and being curious about the world around you!</p>
+        </section>
+        
+        <section class="subject-grid">
+            <div class="subject-card">
+                <h3><i class="fas fa-leaf"></i> Bio-Math</h3>
+                <p>Explore the fascinating world where biology meets mathematics!</p>
+                <ul class="skill-list">
+                    <li><i class="fas fa-check-circle"></i> Nature observation</li>
+                    <li><i class="fas fa-check-circle"></i> Data collection</li>
+                    <li><i class="fas fa-check-circle"></i> Pattern recognition</li>
+                    <li><i class="fas fa-check-circle"></i> Measurement skills</li>
+                </ul>
+            </div>
+            
+            <div class="subject-card">
+                <h3><i class="fas fa-flask"></i> Pure Science</h3>
+                <p>Discover how the universe works through physics and chemistry!</p>
+                <ul class="skill-list">
+                    <li><i class="fas fa-check-circle"></i> Asking "why" questions</li>
+                    <li><i class="fas fa-check-circle"></i> Simple experiments</li>
+                    <li><i class="fas fa-check-circle"></i> Logical thinking</li>
+                    <li><i class="fas fa-check-circle"></i> Problem-solving</li>
+                </ul>
+            </div>
+            
+            <div class="subject-card">
+                <h3><i class="fas fa-laptop-code"></i> Computer Math</h3>
+                <p>Learn to create with code and understand how computers think!</p>
+                <ul class="skill-list">
+                    <li><i class="fas fa-check-circle"></i> Logical thinking</li>
+                    <li><i class="fas fa-check-circle"></i> Pattern recognition</li>
+                    <li><i class="fas fa-check-circle"></i> Basic programming concepts</li>
+                    <li><i class="fas fa-check-circle"></i> Creative problem-solving</li>
+                </ul>
+            </div>
+            
+            <div class="subject-card">
+                <h3><i class="fas fa-chart-line"></i> Commerce</h3>
+                <p>Understand how businesses work and money moves in the world!</p>
+                <ul class="skill-list">
+                    <li><i class="fas fa-check-circle"></i> Basic math skills</li>
+                    <li><i class="fas fa-check-circle"></i> Decision making</li>
+                    <li><i class="fas fa-check-circle"></i> Communication skills</li>
+                    <li><i class="fas fa-check-circle"></i> Planning and organizing</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="activity-section">
+            <h2>Fun Activities to Build Your Skills</h2>
+            <p>Here are some enjoyable ways to develop skills in each subject area:</p>
+            
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <h4>For Bio-Math</h4>
+                    <p>Start a nature journal - draw plants and animals you see, count petals on flowers, measure growth of plants.</p>
+                </div>
+                
+                <div class="activity-card">
+                    <h4>For Pure Science</h4>
+                    <p>Do kitchen experiments - baking (chemistry), make a lemon battery, build a simple pulley system.</p>
+                </div>
+                
+                <div class="activity-card">
+                    <h4>For Computer Math</h4>
+                    <p>Try block-based coding on Scratch or Code.org. Play logic games like Sudoku or chess.</p>
+                </div>
+                
+                <div class="activity-card">
+                    <h4>For Commerce</h4>
+                    <p>Play business games like Monopoly. Set up a lemonade stand or small business with friends.</p>
+                </div>
+                
+                <div class="activity-card">
+                    <h4>General Skill Building</h4>
+                    <p>Read books on topics that interest you. Watch educational shows. Ask questions about how things work.</p>
+                </div>
+                
+                <div class="activity-card">
+                    <h4>Super Skill: Problem-Solving</h4>
+                    <p>Solve puzzles, play strategy games, build with LEGOs, and try to fix broken things (with permission!).</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="intro">
+            <h2>Remember These Important Tips!</h2>
+            <ul class="skill-list">
+                <li><i class="fas fa-star"></i> <strong>Follow your curiosity</strong> - learn about what interests you most</li>
+                <li><i class="fas fa-star"></i> <strong>It's okay to make mistakes</strong> - that's how we learn best</li>
+                <li><i class="fas fa-star"></i> <strong>Ask questions</strong> - lots of them!</li>
+                <li><i class="fas fa-star"></i> <strong>Try different activities</strong> - you might discover new interests</li>
+                <li><i class="fas fa-star"></i> <strong>Have fun</strong> - learning is an adventure!</li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>Designed for curious 10-year-olds | Start your learning journey today!</p>
+            <p>Remember: You're not behind - you're getting a head start by exploring your interests!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple animation for subject cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.subject-card');
+            
+            cards.forEach((card, index) => {
+                // Add delay based on index for staggered animation
+                card.style.animationDelay = ${index * 0.2}s;
+                card.classList.add('animate_animated', 'animate_fadeInUp');
+            });
+            
+            // Add hover effect to activity cards
+            const activityCards = document.querySelectorAll('.activity-card');
+            activityCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                    card.style.transition = 'transform 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

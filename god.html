@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Your Class - DishaMitr</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffbe0b;
+            --class10: #7209b7;
+            --class11: #3a0ca3;
+            --class12: #4361ee;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .back-button {
+            margin: 20px 0;
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:hover {
+            text-decoration: underline;
+        }
+        
+        .class-specific {
+            padding: 40px 0;
+            background: linear-gradient(to right, #f5f7ff, #e6ebff);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+        
+        .class-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 10px;
+        }
+        
+        .class-tab {
+            padding: 15px 30px;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .class-tab.active {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .class-tab.class10.active {
+            background: var(--class10);
+        }
+        
+        .class-tab.class11.active {
+            background: var(--class11);
+        }
+        
+        .class-tab.class12.active {
+            background: var(--class12);
+        }
+        
+        .class-content {
+            display: none;
+        }
+        
+        .class-content.active {
+            display: block;
+        }
+        
+        .class-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .class-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .class-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .class-card.class10::before {
+            background: var(--class10);
+        }
+        
+        .class-card.class11::before {
+            background: var(--class11);
+        }
+        
+        .class-card.class12::before {
+            background: var(--class12);
+        }
+        
+        .class-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .class-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .class-card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .class-card ul {
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .class-card li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .class-card i {
+            color: var(--accent);
+        }
+        
+        .class-card .view-more {
+            margin-top: 20px;
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .class-card.class10 .view-more {
+            color: var(--class10);
+        }
+        
+        .class-card.class11 .view-more {
+            color: var(--class11);
+        }
+        
+        .class-card.class12 .view-more {
+            color: var(--class12);
+        }
+        
+        .class-card .view-more:hover {
+            text-decoration: underline;
+        }
+        
+        /* Quiz Modal Styles */
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .quiz-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            color: #333;
+        }
+        
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-question h4 {
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .quiz-option {
+            padding: 12px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            background: #e9ecef;
+        }
+        
+        .quiz-option.selected {
+            background: #d1ecf1;
+            border-color: var(--primary);
+        }
+        
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .quiz-btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .quiz-btn:hover {
+            background: var(--secondary);
+        }
+        
+        .quiz-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .quiz-progress {
+            height: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .quiz-progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+        }
+        
+        .modal-title {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .modal-instructions {
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .modal-instructions ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .modal-instructions li {
+            margin-bottom: 10px;
+        }
+        
+        .quiz-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .quiz-link:hover {
+            background: #d81159;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .class-tabs {
+                flex-direction: column;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+            
+            .quiz-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Class Specific Section -->
+    <section class="class-specific" id="class-specific">
+        <div class="container">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            
+            <div class="section-title">
+                <h2>Resources For Your Class</h2>
+                <p>Tailored guidance based on your current educational level</p>
+            </div>
+            
+            <div class="class-tabs">
+                <div class="class-tab class10 active" data-class="class10">Class 10</div>
+                <div class="class-tab class11" data-class="class11">Class 11</div>
+                <div class="class-tab class12" data-class="class12">Class 12</div>
+            </div>
+            
+            <div class="class-content class10 active">
+                <div class="class-grid">
+                    <div class="class-card class10" data-class="10" data-title="Stream Selection Guide">
+                        <h3>Stream Selection Guide</h3>
+                        <p>Make the right choice after Class 10</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Science Stream Analysis</li>
+                            <li><i class="fas fa-check-circle"></i> Commerce Stream Analysis</li>
+                            <li><i class="fas fa-check-circle"></i> Arts Stream Analysis</li>
+                            <li><i class="fas fa-check-circle"></i> Vocational Courses Guide</li>
+                        </ul>
+                        <a href="quiz.html" class="view-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="class-card class10" data-class="10" data-title="Subject Combination">
+                        <h3>Subject Combination</h3>
+                        <p>Choose subjects that align with your career goals</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Science with Biology</li>
+                            <li><i class="fas fa-check-circle"></i> Science with Computer Science</li>
+                            <li><i class="fas fa-check-circle"></i> Commerce with Maths</li>
+                            <li><i class="fas fa-check-circle"></i> Arts with Psychology</li>
+                        </ul>
+                        <a href="tenth2.html" class="view-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="class-card class10" data-class="10" data-title="Skill Development">
+                        <h3>Skill Development</h3>
+                        <p>Start building essential skills early</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Basic Coding Skills</li>
+                            <li><i class="fas fa-check-circle"></i> Communication Workshops</li>
+                            <li><i class="fas fa-check-circle"></i> Critical Thinking Exercises</li>
+                            <li><i class="fas fa-check-circle"></i> Career Awareness Programs</li>
+                        </ul>
+                        <a href="tenth3.html" class="view-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="class-content class11">
+                <div class="class-grid">
+                    <div class="class-card class11" data-class="11" data-title="Stream Deep Dive">
+                        <h3>Stream Deep Dive</h3>
+                        <p>Specialize in your chosen field</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Advanced Subject Guidance</li>
+                            <li><i class="fas fa-check-circle"></i> Competitive Exam Preparation</li>
+                            <li><i class="fas fa-check-circle"></i> Olympiad Opportunities</li>
+                            <li><i class="fas fa-check-circle"></i> Project Suggestions</li>
+                        </ul>
+                        <a href="elevth1.html" class="view-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="class-card class11" data-class="11" data-title="Career Exploration">
+                        <h3>Career Exploration</h3>
+                        <p>Discover various career options in your stream</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Career-specific Roadmaps</li>
+                            <li><i class="fas fa-check-circle"></i> Industry Trends Analysis</li>
+                            <li><i class="fas fa-check-circle"></i> Future Job Market Predictions</li>
+                            <li><i class="fas fa-check-circle"></i> Internship Opportunities</li>
+                        </ul>
+                        <a href="#" class="view-more quiz-trigger" data-quiz="career-exploration">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="class-card class11" data-class="11" data-title="Skill Enhancement">
+                        <h3>Skill Enhancement</h3>
+                        <p>Develop skills needed for your future career</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Advanced Coding Skills</li>
+                            <li><i class="fas fa-check-circle"></i> Leadership Workshops</li>
+                            <li><i class="fas fa-check-circle"></i> Research Methodology</li>
+                            <li><i class="fas fa-check-circle"></i> Professional Communication</li>
+                        </ul>
+                        <a href="eleventh3.html" class="view-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="class-content class12">
+                <div class="class-grid">
+                    <div class="class-card class12" data-class="12" data-title="College Preparation">
+                        <h3>College Preparation</h3>
+                        <p>Get ready for higher education</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Entrance Exam Strategies</li>
+                            <li><i class="fas fa-check-circle"></i> College Application Guidance</li>
+                            <li><i class="fas fa-check-circle"></i> Scholarship Information</li>
+                            <li><i class="fas fa-check-circle"></i> Interview Preparation</li>
+                        </ul>
+                        <a href="twelth1.html" class="view-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="class-card class12" data-class="12" data-title="Career Decision Making">
+                        <h3>Career Decision Making</h3>
+                        <p>Finalize your career path</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Degree Program Comparisons</li>
+                            <li><i class="fas fa-check-circle"></i> College Comparisons</li>
+                            <li><i class="fas fa-check-circle"></i> Future Earnings Potential</li>
+                            <li><i class="fas fa-check-circle"></i> Job Market Analysis</li>
+                        </ul>
+                        <a href="#" class="view-more quiz-trigger" data-quiz="career-decision">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="class-card class12" data-class="12" data-title="Transition Readiness">
+                        <h3>Transition Readiness</h3>
+                        <p>Prepare for life after school</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> College Life Preparation</li>
+                            <li><i class="fas fa-check-circle"></i> Time Management Skills</li>
+                            <li><i class="fas fa-check-circle"></i> Financial Literacy</li>
+                            <li><i class="fas fa-check-circle"></i> Independent Living Skills</li>
+                        </ul>
+                        <a href="twelth3.html" class="view-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Modal -->
+    <div class="quiz-modal" id="quizModal">
+        <div class="quiz-content">
+            <span class="close-btn" id="closeQuiz">&times;</span>
+            <h2>Career Exploration Quiz</h2>
+            <div class="quiz-progress">
+                <div class="quiz-progress-bar" id="quizProgress"></div>
+            </div>
+            <div id="quizContainer">
+                <!-- Quiz questions will be inserted here -->
+            </div>
+            <div class="quiz-navigation">
+                <button class="quiz-btn" id="prevQuestion" disabled>Previous</button>
+                <button class="quiz-btn" id="nextQuestion">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Modal Popup -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Quiz Instructions</h2>
+            <div class="modal-instructions">
+                <p>Welcome to the Career Assessment Quiz! This quiz will help you discover your strengths, interests, and ideal career paths.</p>
+                
+                <h3>Before you begin:</h3>
+                <ul>
+                    <li>Find a quiet place where you can focus without distractions</li>
+                    <li>Set aside approximately 15-20 minutes to complete the quiz</li>
+                    <li>Answer honestly based on your preferences, not what others expect</li>
+                    <li>There are no right or wrong answers - this is about discovering your unique strengths</li>
+                </ul>
+                
+                <h3>How it works:</h3>
+                <ul>
+                    <li>You'll answer a series of questions about your interests and preferences</li>
+                    <li>Based on your responses, we'll recommend suitable career paths</li>
+                    <li>You'll receive a personalized report at the end of the quiz</li>
+                </ul>
+                
+                <p>Ready to discover your ideal career path? Click the button below to begin!</p>
+            </div>
+            <a href="#" class="quiz-link" id="startQuizBtn">Start Quiz Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Class tabs functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const classTabs = document.querySelectorAll('.class-tab');
+            const classContents = document.querySelectorAll('.class-content');
+            
+            classTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetClass = tab.getAttribute('data-class');
+                    
+                    // Update active tab
+                    classTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    classContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.classList.contains(targetClass)) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Quiz modal functionality
+            const quizTriggers = document.querySelectorAll('.quiz-trigger');
+            const quizModal = document.getElementById('quizModal');
+            const closeQuiz = document.getElementById('closeQuiz');
+            const infoModal = document.getElementById('infoModal');
+            const closeModal = document.querySelector('.close-modal');
+            const startQuizBtn = document.getElementById('startQuizBtn');
+            
+            quizTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    infoModal.style.display = 'flex';
+                });
+            });
+            
+            closeModal.addEventListener('click', () => {
+                infoModal.style.display = 'none';
+            });
+            
+            startQuizBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                infoModal.style.display = 'none';
+                quizModal.style.display = 'flex';
+                initializeQuiz();
+            });
+            
+            closeQuiz.addEventListener('click', () => {
+                quizModal.style.display = 'none';
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === infoModal) {
+                    infoModal.style.display = 'none';
+                }
+                if (e.target === quizModal) {
+                    quizModal.style.display = 'none';
+                }
+            });
+            
+            // Quiz functionality
+            function initializeQuiz() {
+                const quizData = [
+                    {
+                        question: "Which of these activities do you enjoy the most?",
+                        options: [
+                            "Solving complex problems and puzzles",
+                            "Creating art, music or writing",
+                            "Working with numbers and financial planning",
+                            "Helping and caring for others"
+                        ]
+                    },
+                    {
+                        question: "What type of work environment do you prefer?",
+                        options: [
+                            "Laboratory or technical setting",
+                            "Creative and flexible space",
+                            "Corporate office with structure",
+                            "Community or healthcare facility"
+                        ]
+                    },
+                    {
+                        question: "Which subject interests you the most?",
+                        options: [
+                            "Mathematics and Science",
+                            "Literature and Arts",
+                            "Commerce and Economics",
+                            "Psychology and Social Studies"
+                        ]
+                    },
+                    {
+                        question: "How do you approach problems?",
+                        options: [
+                            "Analytically and logically",
+                            "Creatively and intuitively",
+                            "Practically and efficiently",
+                            "With empathy and understanding"
+                        ]
+                    },
+                    {
+                        question: "What is your long-term career goal?",
+                        options: [
+                            "To innovate and develop new technologies",
+                            "To express creativity and inspire others",
+                            "To manage businesses and achieve financial success",
+                            "To make a positive impact on people's lives"
+                        ]
+                    }
+                ];
+                
+                const quizContainer = document.getElementById('quizContainer');
+                const quizProgress = document.getElementById('quizProgress');
+                const prevButton = document.getElementById('prevQuestion');
+                const nextButton = document.getElementById('nextQuestion');
+                
+                let currentQuestion = 0;
+                const userAnswers = [];
+                
+                function showQuestion() {
+                    quizContainer.innerHTML = '';
+                    
+                    const questionDiv = document.createElement('div');
+                    questionDiv.classList.add('quiz-question');
+                    
+                    const questionHeading = document.createElement('h4');
+                    questionHeading.textContent = `Question ${currentQuestion + 1}: ${quizData[currentQuestion].question}`;
+                    questionDiv.appendChild(questionHeading);
+                    
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.classList.add('quiz-options');
+                    
+                    quizData[currentQuestion].options.forEach((option, index) => {
+                        const optionDiv = document.createElement('div');
+                        optionDiv.classList.add('quiz-option');
+                        if (userAnswers[currentQuestion] === index) {
+                            optionDiv.classList.add('selected');
+                        }
+                        optionDiv.textContent = option;
+                        optionDiv.addEventListener('click', () => {
+                            document.querySelectorAll('.quiz-option').forEach(opt => {
+                                opt.classList.remove('selected');
+                            });
+                            optionDiv.classList.add('selected');
+                            userAnswers[currentQuestion] = index;
+                        });
+                        optionsDiv.appendChild(optionDiv);
+                    });
+                    
+                    questionDiv.appendChild(optionsDiv);
+                    quizContainer.appendChild(questionDiv);
+                    
+                    // Update progress bar
+                    quizProgress.style.width = `${((currentQuestion + 1) / quizData.length) * 100}%`;
+                    
+                    // Update navigation buttons
+                    prevButton.disabled = currentQuestion === 0;
+                    nextButton.textContent = currentQuestion === quizData.length - 1 ? 'Finish Quiz' : 'Next';
+                }
+                
+                prevButton.addEventListener('click', () => {
+                    if (currentQuestion > 0) {
+                        currentQuestion--;
+                        showQuestion();
+                    }
+                });
+                
+                nextButton.addEventListener('click', () => {
+                    if (userAnswers[currentQuestion] === undefined) {
+                        alert('Please select an answer before proceeding.');
+                        return;
+                    }
+                    
+                    if (currentQuestion < quizData.length - 1) {
+                        currentQuestion++;
+                        showQuestion();
+                    } else {
+                        // Quiz completed
+                        quizModal.style.display = 'none';
+                        alert('Quiz completed! Based on your answers, we recommend exploring careers in: Science and Technology fields. Check your dashboard for detailed results.');
+                    }
+                });
+                
+                showQuestion();
+            }
+        });
+    </script>
+</body>
+</html>

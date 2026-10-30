@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guidance - All Streams</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --bio-math: linear-gradient(135deg, #4ca1af, #2c3e50);
+            --commerce: linear-gradient(135deg, #ff7e5f, #feb47b);
+            --pure-science: linear-gradient(135deg, #6a11cb, #2575fc);
+            --computer-math: linear-gradient(135deg, #11998e, #38ef7d);
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+        }
+        
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .tab {
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab.active {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tab-bio-math {
+            background: var(--bio-math);
+            color: white;
+        }
+        
+        .tab-commerce {
+            background: var(--commerce);
+            color: white;
+        }
+        
+        .tab-pure-science {
+            background: var(--pure-science);
+            color: white;
+        }
+        
+        .tab-computer-math {
+            background: var(--computer-math);
+            color: white;
+        }
+        
+        .content-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+        
+        .stream-content {
+            display: none;
+        }
+        
+        .stream-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stream-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .stream-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .bio-math .stream-header h2 {
+            background-image: var(--bio-math);
+        }
+        
+        .commerce .stream-header h2 {
+            background-image: var(--commerce);
+        }
+        
+        .pure-science .stream-header h2 {
+            background-image: var(--pure-science);
+        }
+        
+        .computer-math .stream-header h2 {
+            background-image: var(--computer-math);
+        }
+        
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .career-card {
+            background: var(--light-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .career-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .career-icon {
+            padding: 25px;
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .bio-math .career-icon {
+            background: var(--bio-math);
+        }
+        
+        .commerce .career-icon {
+            background: var(--commerce);
+        }
+        
+        .pure-science .career-icon {
+            background: var(--pure-science);
+        }
+        
+        .computer-math .career-icon {
+            background: var(--computer-math);
+        }
+        
+        .career-info {
+            padding: 25px;
+        }
+        
+        .career-info h3 {
+            margin-bottom: 15px;
+            color: var(--dark-text);
+            font-size: 1.4rem;
+        }
+        
+        .pathway {
+            background: var(--light-bg);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .pathway h3 {
+            margin-bottom: 20px;
+            color: var(--dark-text);
+            font-size: 1.5rem;
+        }
+        
+        .pathway-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step h4 {
+            margin-bottom: 10px;
+            color: var(--dark-text);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 20px 20px 0 0;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .tab {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .content-section {
+                padding: 25px;
+            }
+            
+            .career-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Complete Career Guidance</h1>
+            <p>Explore opportunities across all academic streams</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="tabs">
+            <div class="tab tab-bio-math active" data-stream="bio-math">Bio-Math</div>
+            <div class="tab tab-commerce" data-stream="commerce">Commerce</div>
+            <div class="tab tab-pure-science" data-stream="pure-science">Pure Science</div>
+            <div class="tab tab-computer-math" data-stream="computer-math">Computer Math</div>
+        </div>
+        
+        <section class="content-section">
+            <!-- Bio-Math Content -->
+            <div class="stream-content bio-math active" id="bio-math">
+                <div class="stream-header">
+                    <h2>Bio-Math Career Paths</h2>
+                    <p>Combining biology with mathematics opens doors to interdisciplinary fields</p>
+                </div>
+                
+                <div class="career-grid">
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-dna"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Biomedical Engineering</h3>
+                            <p>Design medical equipment, devices, computer systems, and software used in healthcare.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-laptop-medical"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Bioinformatics</h3>
+                            <p>Use technology to study and process biological data for research and applications.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Biotechnology</h3>
+                            <p>Develop products and technologies using biological systems, organisms, or derivatives.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pathway">
+                    <h3>Educational Pathway</h3>
+                    <div class="pathway-steps">
+                        <div class="step">
+                            <h4>After 12th</h4>
+                            <p>Bachelor's in Biomedical Engineering, Biotechnology, or Bioinformatics</p>
+                        </div>
+                        <div class="step">
+                            <h4>After Graduation</h4>
+                            <p>Master's specialization in chosen field</p>
+                        </div>
+                        <div class="step">
+                            <h4>Professional</h4>
+                            <p>PhD for research roles or industry certifications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Commerce Content -->
+            <div class="stream-content commerce" id="commerce">
+                <div class="stream-header">
+                    <h2>Commerce Career Paths</h2>
+                    <p>Building expertise in business, finance, and economics</p>
+                </div>
+                
+                <div class="career-grid">
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Chartered Accountancy</h3>
+                            <p>Manage financial accounting, auditing, and taxation for businesses and individuals.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Business Management</h3>
+                            <p>Lead organizations, manage operations, and drive business growth strategies.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Investment Banking</h3>
+                            <p>Help companies raise capital, provide financial advisory services, and facilitate mergers.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pathway">
+                    <h3>Educational Pathway</h3>
+                    <div class="pathway-steps">
+                        <div class="step">
+                            <h4>After 12th</h4>
+                            <p>Bachelor's in Commerce, Business Administration, or Economics</p>
+                        </div>
+                        <div class="step">
+                            <h4>After Graduation</h4>
+                            <p>Professional courses like CA, CMA, CS or MBA</p>
+                        </div>
+                        <div class="step">
+                            <h4>Professional</h4>
+                            <p>Specialized certifications in finance, banking, or digital marketing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pure Science Content -->
+            <div class="stream-content pure-science" id="pure-science">
+                <div class="stream-header">
+                    <h2>Pure Science Career Paths</h2>
+                    <p>Exploring the fundamental principles of the natural world</p>
+                </div>
+                
+                <div class="career-grid">
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Research Scientist</h3>
+                            <p>Conduct experiments and research to advance knowledge in physics, chemistry, or biology.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Academic Careers</h3>
+                            <p>Teach and mentor students at universities while conducting research.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-vial"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Laboratory Sciences</h3>
+                            <p>Work in industrial, clinical, or research laboratories conducting analyses.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pathway">
+                    <h3>Educational Pathway</h3>
+                    <div class="pathway-steps">
+                        <div class="step">
+                            <h4>After 12th</h4>
+                            <p>Bachelor's in Physics, Chemistry, Biology, or related fields</p>
+                        </div>
+                        <div class="step">
+                            <h4>After Graduation</h4>
+                            <p>Master's degree in specialized area of science</p>
+                        </div>
+                        <div class="step">
+                            <h4>Professional</h4>
+                            <p>PhD for research and academic positions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Computer Math Content -->
+            <div class="stream-content computer-math" id="computer-math">
+                <div class="stream-header">
+                    <h2>Computer Math Career Paths</h2>
+                    <p>Blending computational skills with mathematical reasoning</p>
+                </div>
+                
+                <div class="career-grid">
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Software Development</h3>
+                            <p>Design, develop, and maintain software applications and systems.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Data Science</h3>
+                            <p>Extract insights from large datasets using statistical and computational methods.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="career-card">
+                        <div class="career-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="career-info">
+                            <h3>Artificial Intelligence</h3>
+                            <p>Develop intelligent systems and algorithms that can learn and make decisions.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pathway">
+                    <h3>Educational Pathway</h3>
+                    <div class="pathway-steps">
+                        <div class="step">
+                            <h4>After 12th</h4>
+                            <p>Bachelor's in Computer Science, IT, or Mathematics</p>
+                        </div>
+                        <div class="step">
+                            <h4>After Graduation</h4>
+                            <p>Master's in Data Science, AI, or specialized certifications</p>
+                        </div>
+                        <div class="step">
+                            <h4>Professional</h4>
+                            <p>Industry certifications from Microsoft, Google, AWS, etc.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Career Guidance Portal | Comprehensive information for all academic streams</p>
+            <p>Remember: Your stream choice is just the beginning - success comes from passion and hard work!</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.stream-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const stream = tab.getAttribute('data-stream');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show active content
+                    contents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === stream) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
